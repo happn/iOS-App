@@ -18,6 +18,9 @@
 		4739C969152318D600F611A1 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4739C968152318D600F611A1 /* libxml2.dylib */; };
 		4739C96D15231CF600F611A1 /* RKRequestExamples.m in Sources */ = {isa = PBXBuildFile; fileRef = 4739C96C15231CF600F611A1 /* RKRequestExamples.m */; };
 		4739C9821523397F00F611A1 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4739C979152338E500F611A1 /* libRestKit.a */; };
+		4754AF96152C9C93005EBB3C /* bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4754AF93152C9C93005EBB3C /* bg@2x.png */; };
+		4754AF97152C9C93005EBB3C /* takephoto.png in Resources */ = {isa = PBXBuildFile; fileRef = 4754AF94152C9C93005EBB3C /* takephoto.png */; };
+		4754AF98152C9C93005EBB3C /* takephoto@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4754AF95152C9C93005EBB3C /* takephoto@2x.png */; };
 		4766D5E5148D841F00803585 /* page.png in Resources */ = {isa = PBXBuildFile; fileRef = 4766D5E4148D841F00803585 /* page.png */; };
 		4766D5E7148D843100803585 /* page@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4766D5E6148D843100803585 /* page@2x.png */; };
 		4766D5E9148D849E00803585 /* preferences@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4766D5E8148D849E00803585 /* preferences@2x.png */; };
@@ -129,6 +132,9 @@
 		4739C96B15231CF600F611A1 /* RKRequestExamples.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKRequestExamples.h; sourceTree = "<group>"; };
 		4739C96C15231CF600F611A1 /* RKRequestExamples.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKRequestExamples.m; sourceTree = "<group>"; };
 		4739C96E152338E400F611A1 /* RestKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RestKit.xcodeproj; path = RestKit/RestKit.xcodeproj; sourceTree = "<group>"; };
+		4754AF93152C9C93005EBB3C /* bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg@2x.png"; sourceTree = "<group>"; };
+		4754AF94152C9C93005EBB3C /* takephoto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = takephoto.png; sourceTree = "<group>"; };
+		4754AF95152C9C93005EBB3C /* takephoto@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "takephoto@2x.png"; sourceTree = "<group>"; };
 		4766D5E4148D841F00803585 /* page.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = page.png; sourceTree = "<group>"; };
 		4766D5E6148D843100803585 /* page@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "page@2x.png"; sourceTree = "<group>"; };
 		4766D5E8148D849E00803585 /* preferences@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "preferences@2x.png"; sourceTree = "<group>"; };
@@ -219,6 +225,9 @@
 		4766D5EC148D84D400803585 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				4754AF93152C9C93005EBB3C /* bg@2x.png */,
+				4754AF94152C9C93005EBB3C /* takephoto.png */,
+				4754AF95152C9C93005EBB3C /* takephoto@2x.png */,
 				47CCA3B5152C782D0051F6B9 /* bg.png */,
 				47AF462A1491694F00781FF0 /* FuFunkLogo.png */,
 				47AF462B1491694F00781FF0 /* FuFunkLogo@2x.png */,
@@ -450,6 +459,9 @@
 				47AF462C1491694F00781FF0 /* FuFunkLogo.png in Resources */,
 				47AF462D1491694F00781FF0 /* FuFunkLogo@2x.png in Resources */,
 				47CCA3B6152C782D0051F6B9 /* bg.png in Resources */,
+				4754AF96152C9C93005EBB3C /* bg@2x.png in Resources */,
+				4754AF97152C9C93005EBB3C /* takephoto.png in Resources */,
+				4754AF98152C9C93005EBB3C /* takephoto@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
