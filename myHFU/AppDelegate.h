@@ -13,6 +13,8 @@
 #import "RKConnectionHandler.h"
 #import "WebSocketTest.h"
 
+@class JASidePanelController;
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate, RKObjectLoaderDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
@@ -20,11 +22,7 @@
 @property (strong, nonatomic) NSArray *allMeals;
 @property (strong, nonatomic) MPMoviePlayerController *moviePlayer;
 @property (assign, nonatomic) BOOL playerIsPlaying;
-@property (assign, nonatomic) RKClient *sharedClient;
-//@property (strong, nonatomic) RKRequestExamples *example;
+@property (strong, nonatomic) JASidePanelController *viewController;
 @property (strong, nonatomic) RKConnectionHandler *connectionHandler;
-//@property (strong, nonatomic) WebSocketTest *ws;
-
-//- (void)downloadAndSetupMeals;
 
 @end

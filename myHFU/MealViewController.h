@@ -10,14 +10,18 @@
 #import "DailyMenu.h"
 #import "AppDelegate.h"
 
-@interface MealViewController : UIViewController
+@interface MealViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 {
     
 }
-@property (weak, nonatomic) IBOutlet UITextView *menu_a;
-@property (weak, nonatomic) IBOutlet UITextView *menu_b;
-@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (assign, nonatomic) AppDelegate *appDelegate;
+- (IBAction)takePictureA:(id)sender;
+- (IBAction)takePictureB:(id)sender;
 
+@property (weak, nonatomic) IBOutlet UIButton *bt_MenuA;
+@property (weak, nonatomic) IBOutlet UIButton *bt_MenuB;
+
+- (void) changeButtonImage;
+- (void) takePictureOfMeal;
 
 @end

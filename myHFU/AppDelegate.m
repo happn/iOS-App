@@ -6,30 +6,45 @@
 //  Copyright (c) 2011 MeetNow! UG (haftungsbeschränkt). All rights reserved.
 //
 
-#import "AppDelegate.h"
-//#import "dietXmlParser.h"
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
+#import "AppDelegate.h"
+
+#import "JASidePanelController.h"
+#import "LeftTableViewController.h"
+#import "MealViewController.h"
+
 
 @implementation AppDelegate
 
-@synthesize window = _window, allMeals = _allMeals, moviePlayer = _moviePlayer, playerIsPlaying = _playerIsPlaying, sharedClient = _sharedClient, /*example = _example, ws = _ws,*/ connectionHandler = _connectionHandler, loadedMeals = _loadedMeals;
+@synthesize window = _window, allMeals = _allMeals, moviePlayer = _moviePlayer, playerIsPlaying = _playerIsPlaying, connectionHandler = _connectionHandler, loadedMeals = _loadedMeals;
+@synthesize viewController = _viewController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    //[self downloadAndSetupMeals];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    self.sharedClient = [RKClient clientWithBaseURL:@"http://78.46.19.228:8010"];
+    self.viewController = [[JASidePanelController alloc] init];
+    self.viewController.leftPanel = [[LeftTableViewController alloc] init];
+    self.viewController.centerPanel = [[UINavigationController alloc] initWithRootViewController:[[MealViewController alloc] init]];
+    
+    
+
+    
+    //self.viewController.centerPanel.navigationController.title = @"FUUUUU";
+    
+    //self.viewController.navigationController.navigationBar.tintColor = [UIColor colorWithRed:34.0 green:23.0 blue:56.0 alpha:1];
+    //self.viewController.rightPanel = [[RightViewController alloc] init];
+    
+    [[[[self.viewController gestureController] navigationController] navigationBar] setBarStyle:UIBarStyleBlack];
+
+    
+    self.window.rootViewController = self.viewController;
+    
+        
 
     self.connectionHandler = [[RKConnectionHandler alloc] init];
-    [self.connectionHandler loadDay];
-    
-    //self.example = [[RKRequestExamples alloc] init];
-    //[self.example sendRequests];
-    
-    //self.ws = [[WebSocketTest alloc] init];
-    //[self.ws sendRequests];
-    
+    //[self.connectionHandler loadDay];
 
     //Stuff we do not need to change
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
@@ -50,18 +65,9 @@
     
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
     
+    [self.window makeKeyAndVisible];
     return YES;
 }
-
-/*- (void)downloadAndSetupMeals
-{
-    NSURL *url = [[NSURL alloc] initWithString:@"http://www.studentenwerk.uni-freiburg.de/index.php?id=855&no_cache=1&L=&Tag=0&Ort_ID=641"];
-    NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
-    dietXmlParser *dietXMLParser = [[dietXmlParser alloc] init];
-    [xmlParser setDelegate:dietXMLParser];
-    [xmlParser parse];
-    self.allMeals = dietXMLParser.meals;
-}*/
 
 - (void)remoteControlReceivedWithEvent:(UIEvent *)event {
     switch(event.subtype) {
