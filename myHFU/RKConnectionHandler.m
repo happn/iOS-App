@@ -10,7 +10,7 @@
 
 @implementation RKConnectionHandler
 
-@synthesize manager = _manager, mealMapping = _mealMapping, dailyMealMapping = _dailyMealMapping, appDelegate = _appDelegate;
+@synthesize mealMapping = _mealMapping, dailyMealMapping = _dailyMealMapping, appDelegate = _appDelegate;
 
 - (id)init
 {
@@ -26,19 +26,31 @@
         [self.dailyMealMapping mapKeyPath:@"date" toAttribute:@"date"];
         [self.dailyMealMapping mapKeyPath:@"menu_a" toRelationship:@"menu_a" withMapping:self.mealMapping];
         [self.dailyMealMapping mapKeyPath:@"menu_b" toRelationship:@"menu_b" withMapping:self.mealMapping];
-        
-        
     }
 	
 	return self;
 }
 
-- (void) loadDay 
+- (void) loadDay:(NSString*) dateString
 {
+    //NSString *serverAdress = ;
+    //serverAdress = [serverAdress stringByAppendingString:dateString];
+    
     self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    self.manager = [RKObjectManager objectManagerWithBaseURL:@"http://78.46.19.228:8010/v1/showDay"];
-    [self.manager loadObjectsAtResourcePath:@"/04042012" objectMapping:self.dailyMealMapping delegate:self.appDelegate];
+    RKObjectManager *manager = [RKObjectManager objectManagerWithBaseURL:@"http://78.46.19.228:8010/v1/day/"];
+    [manager loadObjectsAtResourcePath:dateString objectMapping:self.dailyMealMapping delegate:self.appDelegate];
 }
+
+- (void) loadWeek:(NSString*) dateString
+{
+    NSString *serverAdress = @"http://78.46.19.228:8010/v1/week/";
+    //serverAdress = [serverAdress stringByAppendingString:dateString];
+    
+    self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    RKObjectManager *manager = [[RKObjectManager alloc] initWithBaseURL:serverAdress];
+    [manager loadObjectsAtResourcePath:dateString objectMapping:self.dailyMealMapping delegate:self.appDelegate];
+}
+
 /*
 - (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObject:(id)object
 {

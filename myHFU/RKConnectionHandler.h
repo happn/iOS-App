@@ -15,11 +15,11 @@
 
 @interface RKConnectionHandler : NSObject
 
-@property (strong, nonatomic) RKObjectManager *manager;
 @property (strong, nonatomic) RKObjectMapping *mealMapping;
 @property (strong, nonatomic) RKObjectMapping *dailyMealMapping;
 @property (assign, nonatomic) AppDelegate *appDelegate;
 
-- (void) loadDay;
+- (void) loadDay:(NSString*) dateString;
+- (void) loadWeek:(NSString*) dateString;
 
 @end

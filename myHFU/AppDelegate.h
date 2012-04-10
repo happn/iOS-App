@@ -25,4 +25,6 @@
 @property (strong, nonatomic) JASidePanelController *viewController;
 @property (strong, nonatomic) RKConnectionHandler *connectionHandler;
 
+- (NSString*)getCurrentDate;
+
 @end

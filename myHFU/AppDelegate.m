@@ -41,10 +41,8 @@
     
     self.window.rootViewController = self.viewController;
     
-        
-
     self.connectionHandler = [[RKConnectionHandler alloc] init];
-    //[self.connectionHandler loadDay];
+    [self.connectionHandler loadDay:[self getCurrentDate]];
 
     //Stuff we do not need to change
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
@@ -121,6 +119,19 @@
 - (void)objectLoader:(RKObjectLoader*)objectLoader didFailWithError:(NSError*)error
 {
     RKLogInfo(@"Some Error occured: %@", error);
+}
+
+- (NSString*)getCurrentDate
+{
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"ddMMyyyy"];
+    
+    
+    NSDate *currentDate = [NSDate date]; // aktuelles Datum und die Uhrzeit
+    NSString *dateString = [dateFormatter stringFromDate:currentDate];
+    
+    return dateString;
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application
