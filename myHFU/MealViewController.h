@@ -20,6 +20,8 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *bt_MenuA;
 @property (weak, nonatomic) IBOutlet UIButton *bt_MenuB;
+@property (weak, nonatomic) IBOutlet UIWebView *webView_MenuA;
+@property (weak, nonatomic) IBOutlet UIWebView *webView_MenuB;
 
 - (void) changeButtonImage;
 - (void) takePictureOfMeal;

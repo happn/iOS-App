@@ -18,7 +18,7 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate, RKObjectLoaderDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (strong, nonatomic) NSArray *loadedMeals;
+@property (nonatomic, retain) NSArray *loadedMeals;
 @property (strong, nonatomic) NSArray *allMeals;
 @property (strong, nonatomic) MPMoviePlayerController *moviePlayer;
 @property (assign, nonatomic) BOOL playerIsPlaying;

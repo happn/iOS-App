@@ -110,22 +110,24 @@
 
 - (void) objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects
 { 
-    RKLogInfo(@"Load Collection of Meals: %@", objects);
+    //RKLogInfo(@"Load Collection of Meals: %@", objects);
     self.loadedMeals = objects;
-    
-    DailyMenu *dailyMenu = [self.loadedMeals objectAtIndex:0];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"mealsLoaded"
+                                                        object:self
+                                                      userInfo:nil];
+
 }
      
-- (void)objectLoader:(RKObjectLoader*)objectLoader didFailWithError:(NSError*)error
+- (void) objectLoader:(RKObjectLoader*)objectLoader didFailWithError:(NSError*)error
 {
-    RKLogInfo(@"Some Error occured: %@", error);
+    //RKLogInfo(@"Some Error occured: %@", error);
 }
 
 - (NSString*)getCurrentDate
 {
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"ddMMyyyy"];
+    [dateFormatter setDateFormat:@"/ddMMyyyy"];
     
     
     NSDate *currentDate = [NSDate date]; // aktuelles Datum und die Uhrzeit
@@ -133,6 +135,7 @@
     
     return dateString;
 }
+
 							
 - (void)applicationWillResignActive:(UIApplication *)application
 {

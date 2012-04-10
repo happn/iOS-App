@@ -12,7 +12,7 @@
 
 @interface DailyMenu : NSObject
 
-@property (nonatomic, retain) NSString *date;
+@property (nonatomic, retain) NSDate *date;
 @property (nonatomic, retain) Meal *menu_a;
 @property (nonatomic, retain) Meal *menu_b;
 @end

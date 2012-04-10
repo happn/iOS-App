@@ -11,12 +11,13 @@
 			<string key="NS.object.0">1420</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
-			<string>IBUISegmentedControl</string>
-			<string>IBUIViewController</string>
-			<string>IBUIButton</string>
 			<string>IBUIView</string>
 			<string>IBUIImageView</string>
+			<string>IBUIViewController</string>
 			<string>IBProxyObject</string>
+			<string>IBUIWebView</string>
+			<string>IBUISegmentedControl</string>
+			<string>IBUIButton</string>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -45,7 +46,7 @@
 							<string key="NSFrame">{{12, 15}, {101, 101}}</string>
 							<reference key="NSSuperview" ref="1001608202"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="969920213"/>
+							<reference key="NSNextKeyView" ref="434439047"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="IBUIOpaque">NO</bool>
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -83,7 +84,7 @@
 							<string key="NSFrame">{{12, 223}, {101, 101}}</string>
 							<reference key="NSSuperview" ref="1001608202"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="555780459"/>
+							<reference key="NSNextKeyView" ref="404867606"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="IBUIOpaque">NO</bool>
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -158,7 +159,6 @@
 							<string key="NSFrame">{{151, 367}, {149, 30}}</string>
 							<reference key="NSSuperview" ref="1001608202"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="IBUIOpaque">NO</bool>
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -188,6 +188,34 @@
 								<int key="NSColorSpace">1</int>
 								<bytes key="NSRGB">MC43Njg2Mjc0NTEgMC44NDMxMzcyNTQ5IDAuNjIzNTI5NDExOAA</bytes>
 							</object>
+						</object>
+						<object class="IBUIWebView" id="434439047">
+							<reference key="NSNextResponder" ref="1001608202"/>
+							<int key="NSvFlags">292</int>
+							<string key="NSFrame">{{121, 15}, {199, 115}}</string>
+							<reference key="NSSuperview" ref="1001608202"/>
+							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView" ref="969920213"/>
+							<string key="NSReuseIdentifierKey">_NS:9</string>
+							<reference key="IBUIBackgroundColor" ref="617879788"/>
+							<bool key="IBUIOpaque">NO</bool>
+							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+							<int key="IBUIDataDetectorTypes">1</int>
+							<bool key="IBUIDetectsPhoneNumbers">YES</bool>
+						</object>
+						<object class="IBUIWebView" id="404867606">
+							<reference key="NSNextResponder" ref="1001608202"/>
+							<int key="NSvFlags">292</int>
+							<string key="NSFrame">{{126, 223}, {199, 115}}</string>
+							<reference key="NSSuperview" ref="1001608202"/>
+							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView" ref="555780459"/>
+							<string key="NSReuseIdentifierKey">_NS:9</string>
+							<reference key="IBUIBackgroundColor" ref="617879788"/>
+							<bool key="IBUIOpaque">NO</bool>
+							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+							<int key="IBUIDataDetectorTypes">1</int>
+							<bool key="IBUIDetectsPhoneNumbers">YES</bool>
 						</object>
 					</array>
 					<string key="NSFrame">{{0, 64}, {320, 416}}</string>
@@ -245,6 +273,22 @@
 					<int key="connectionID">21</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">webView_MenuA</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="434439047"/>
+					</object>
+					<int key="connectionID">24</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">webView_MenuB</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="404867606"/>
+					</object>
+					<int key="connectionID">25</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">takePictureA:</string>
 						<reference key="source" ref="328752427"/>
@@ -299,6 +343,8 @@
 							<reference ref="328752427"/>
 							<reference ref="969920213"/>
 							<reference ref="555780459"/>
+							<reference ref="434439047"/>
+							<reference ref="404867606"/>
 						</array>
 						<reference key="parent" ref="838352672"/>
 					</object>
@@ -327,6 +373,16 @@
 						<reference key="object" ref="555780459"/>
 						<reference key="parent" ref="1001608202"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">22</int>
+						<reference key="object" ref="434439047"/>
+						<reference key="parent" ref="1001608202"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">23</int>
+						<reference key="object" ref="404867606"/>
+						<reference key="parent" ref="1001608202"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -341,6 +397,8 @@
 				<integer value="1" key="12.IUISegmentedControlInspectorSelectedSegmentMetadataKey"/>
 				<string key="2.CustomClassName">MealViewController</string>
 				<string key="2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="22.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="23.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="3.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="7.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="8.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -349,7 +407,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">21</int>
+			<int key="maxID">25</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -373,6 +431,8 @@
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="bt_MenuA">UIButton</string>
 						<string key="bt_MenuB">UIButton</string>
+						<string key="webView_MenuA">UIWebView</string>
+						<string key="webView_MenuB">UIWebView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="bt_MenuA">
@@ -382,6 +442,14 @@
 						<object class="IBToOneOutletInfo" key="bt_MenuB">
 							<string key="name">bt_MenuB</string>
 							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="webView_MenuA">
+							<string key="name">webView_MenuA</string>
+							<string key="candidateClassName">UIWebView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="webView_MenuB">
+							<string key="name">webView_MenuB</string>
+							<string key="candidateClassName">UIWebView</string>
 						</object>
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">

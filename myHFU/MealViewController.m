@@ -11,26 +11,55 @@
 @implementation MealViewController
 @synthesize bt_MenuA = _bt_MenuA;
 @synthesize bt_MenuB = _bt_MenuB;
+@synthesize webView_MenuA = _webView_MenuA;
+@synthesize webView_MenuB = _webView_MenuB;
 
 
 @synthesize appDelegate = _appDelegate;
 
-
+- (id)init
+{
+    self = [super init];
+    if (self != nil) {
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(dataReceivedNotification:)
+                                                     name:@"mealsLoaded"
+                                                   object:nil];
+        
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-	
-    [self.appDelegate addObserver:self forKeyPath:@"loadedMeals" options:NSKeyValueChangeSetting context:nil];
+    self.webView_MenuA.opaque = NO;
+    self.webView_MenuA.backgroundColor = [UIColor clearColor];
     
-    DailyMenu *dailyMeal = [self.appDelegate.loadedMeals objectAtIndex:0];
+    self.webView_MenuB.opaque = NO;
+    self.webView_MenuB.backgroundColor = [UIColor clearColor];
+    
+    //self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    //([self.appDelegate addObserver:self forKeyPath:@"loadedMeals" options:NSKeyValueChangeSetting context:nil];
 }
 
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void*)context 
-{ 
-    NSLog(@"Hat sich geändert"); 
+- (void)dataReceivedNotification:(NSNotification*)notification
+{
+    self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    DailyMenu *dailyMeal = [self.appDelegate.loadedMeals objectAtIndex:0];
+    
+    NSString *htmlStringTop = @"<html><title></title><body style=""background-color:transparent;"">";
+    NSString *htmlStringBottom = @"</body></html>";
+    
+    NSString *htmlSourceStringA = [[htmlStringTop stringByAppendingString:dailyMeal.menu_a.title] stringByAppendingString:htmlStringBottom];
+    
+    NSString *htmlSourceStringB = [[htmlStringTop stringByAppendingString:dailyMeal.menu_b.title] stringByAppendingString:htmlStringBottom];
+    
+    [self.webView_MenuA loadHTMLString:htmlSourceStringA baseURL:[NSURL URLWithString:@""]];
+    [self.webView_MenuB loadHTMLString:htmlSourceStringB baseURL:[NSURL URLWithString:@""]];
+
+    [self.view setNeedsDisplay];    // do something with data
 }
 /*- (id)initWithFrame:(CGRect)frame
 {
@@ -137,8 +166,11 @@
 
 - (void)viewDidUnload {
 
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self setBt_MenuA:nil];
     [self setBt_MenuB:nil];
+    [self setWebView_MenuA:nil];
+    [self setWebView_MenuB:nil];
     [super viewDidUnload];
 }
 @end

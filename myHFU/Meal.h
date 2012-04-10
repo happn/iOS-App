@@ -11,8 +11,8 @@
 @interface Meal : NSObject
 
 @property (nonatomic, retain) NSString* title;
-@property (nonatomic, retain) NSArray* upVotes;
-@property (nonatomic, retain) NSArray* downVotes;
+@property (nonatomic, retain) NSNumber* upVotes;
+@property (nonatomic, retain) NSNumber* downVotes;
 @property (nonatomic, retain) NSString* picture;
 
 @end

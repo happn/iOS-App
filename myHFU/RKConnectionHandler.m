@@ -26,6 +26,8 @@
         [self.dailyMealMapping mapKeyPath:@"date" toAttribute:@"date"];
         [self.dailyMealMapping mapKeyPath:@"menu_a" toRelationship:@"menu_a" withMapping:self.mealMapping];
         [self.dailyMealMapping mapKeyPath:@"menu_b" toRelationship:@"menu_b" withMapping:self.mealMapping];
+        
+        
     }
 	
 	return self;
@@ -33,22 +35,30 @@
 
 - (void) loadDay:(NSString*) dateString
 {
-    //NSString *serverAdress = ;
-    //serverAdress = [serverAdress stringByAppendingString:dateString];
+    NSString *serverAdress = @"http://78.46.19.228:8010";
+    NSString *resourcePath = @"/v1/day";
+    resourcePath = [resourcePath stringByAppendingString:dateString];
     
     self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    RKObjectManager *manager = [RKObjectManager objectManagerWithBaseURL:@"http://78.46.19.228:8010/v1/day/"];
-    [manager loadObjectsAtResourcePath:dateString objectMapping:self.dailyMealMapping delegate:self.appDelegate];
+    RKObjectManager *manager = [RKObjectManager objectManagerWithBaseURLString:serverAdress];
+    [manager.mappingProvider setErrorMapping:self.dailyMealMapping];
+    [manager.mappingProvider setObjectMapping:self.dailyMealMapping forResourcePathPattern:resourcePath];
+    //[manager.mappingProvider addObjectMapping:self.dailyMealMapping];
+    [manager loadObjectsAtResourcePath:resourcePath  delegate:self.appDelegate];
 }
 
 - (void) loadWeek:(NSString*) dateString
 {
-    NSString *serverAdress = @"http://78.46.19.228:8010/v1/week/";
-    //serverAdress = [serverAdress stringByAppendingString:dateString];
+    NSString *serverAdress = @"http://78.46.19.228:8010";
+    NSString *resourcePath = @"/v1/week";
+    resourcePath = [resourcePath stringByAppendingString:dateString];
     
     self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    RKObjectManager *manager = [[RKObjectManager alloc] initWithBaseURL:serverAdress];
-    [manager loadObjectsAtResourcePath:dateString objectMapping:self.dailyMealMapping delegate:self.appDelegate];
+    RKObjectManager *manager = [RKObjectManager objectManagerWithBaseURLString:serverAdress];
+    [manager.mappingProvider setErrorMapping:self.dailyMealMapping];
+    [manager.mappingProvider setObjectMapping:self.dailyMealMapping forResourcePathPattern:resourcePath];
+    //[manager.mappingProvider addObjectMapping:self.dailyMealMapping];
+    [manager loadObjectsAtResourcePath:resourcePath  delegate:self.appDelegate];
 }
 
 /*
