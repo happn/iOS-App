@@ -26,6 +26,10 @@
                                                      name:@"mealsLoaded"
                                                    object:nil];
         
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(dataReceivedNotification:)
+                                                     name:@"dayChanged"
+                                                   object:nil];
     }
     return self;
 }
@@ -50,20 +54,27 @@
     int day1;
     int day2;
     self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-    for (int i = 0; i < [self.appDelegate.loadedMeals count]; i++) {
+ 
+    if ([notification.name isEqualToString:@"mealsLoaded"])
+    {
+        for (int i = 0; i < [self.appDelegate.loadedMeals count]; i++) {
         
-        day1 = [[NSCalendar currentCalendar] ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:[[self.appDelegate.loadedMeals objectAtIndex:i] date]];
-        day2 = [[NSCalendar currentCalendar] ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:[NSDate date]];
+            day1 = [[NSCalendar currentCalendar] ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:[[self.appDelegate.    loadedMeals objectAtIndex:i] date]];
+            day2 = [[NSCalendar currentCalendar] ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:[NSDate date]];
         
-        if (day1 == day2)
-        {
-            dailyMeal = [self.appDelegate.loadedMeals objectAtIndex:i];
-            break;
+            if (day1 == day2)
+            {
+                dailyMeal = [self.appDelegate.loadedMeals objectAtIndex:i];
+                break;
+            }
         }
     }
     
-    
+    if ([notification.name isEqualToString:@"dayChanged"])
+    {
+        NSNumber *i = [notification.userInfo valueForKey:@"index"];
+        dailyMeal = [self.appDelegate.loadedMeals objectAtIndex:[i unsignedIntValue]];
+    }
     
     NSString *htmlStringTop = @"<html><title></title><body style=""background-color:transparent;"">";
     NSString *htmlStringBottom = @"</body></html>";
@@ -75,7 +86,7 @@
     [self.webView_MenuA loadHTMLString:htmlSourceStringA baseURL:[NSURL URLWithString:@""]];
     [self.webView_MenuB loadHTMLString:htmlSourceStringB baseURL:[NSURL URLWithString:@""]];
 
-    [self.view setNeedsDisplay];    // do something with data
+    //[self.view setNeedsDisplay]; 
 }
 /*- (id)initWithFrame:(CGRect)frame
 {

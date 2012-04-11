@@ -28,17 +28,6 @@
     self.viewController.leftPanel = [[LeftTableViewController alloc] init];
     self.viewController.centerPanel = [[UINavigationController alloc] initWithRootViewController:[[MealViewController alloc] init]];
     
-    
-
-    
-    //self.viewController.centerPanel.navigationController.title = @"FUUUUU";
-    
-    //self.viewController.navigationController.navigationBar.tintColor = [UIColor colorWithRed:34.0 green:23.0 blue:56.0 alpha:1];
-    //self.viewController.rightPanel = [[RightViewController alloc] init];
-    
-    [[[[self.viewController gestureController] navigationController] navigationBar] setBarStyle:UIBarStyleBlack];
-
-    
     self.window.rootViewController = self.viewController;
     
     self.connectionHandler = [[RKConnectionHandler alloc] init];
@@ -112,6 +101,7 @@
 { 
     //RKLogInfo(@"Load Collection of Meals: %@", objects);
     self.loadedMeals = objects;
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"mealsLoaded"
                                                         object:self
                                                       userInfo:nil];

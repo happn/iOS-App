@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JASidePanelController.h"
+#import "AppDelegate.h"
 
 @interface LeftTableViewController : UITableViewController
+
+@property (nonatomic, retain) NSArray *loadedMeals;
 
 @end

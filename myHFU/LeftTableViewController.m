@@ -14,11 +14,17 @@
 
 @implementation LeftTableViewController
 
+@synthesize loadedMeals = _loadedMeals;
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
+    if (self) 
+    {
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(dataReceivedNotification:)
+                                                     name:@"mealsLoaded"
+                                                   object:nil];
     }
     return self;
 }
@@ -50,26 +56,51 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+    if (self.loadedMeals == nil)
+    {
+        return 1;
+    }
+    else {
+        // Return the number of rows in the section.
+        return self.loadedMeals.count;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil){
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
     
-    // Configure the cell...
+    if (self.loadedMeals == nil)
+    {
+        cell.textLabel.text = @"Loading...";
+    }
+    else 
+    {
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"EEEE, dd.MM.yy"];
+        
+        NSString *dateString = [dateFormatter stringFromDate:[[self.loadedMeals objectAtIndex:indexPath.row] date]];
+        
+        cell.textLabel.text = dateString;
+    }
     
     return cell;
+}
+
+- (void)dataReceivedNotification:(NSNotification*)notification
+{
+    AppDelegate* appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    self.loadedMeals = appDelegate.loadedMeals;  
 }
 
 /*
@@ -115,6 +146,18 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSDictionary* dict = [NSDictionary dictionaryWithObject:
+                          [NSNumber numberWithInt:indexPath.row]
+                                                     forKey:@"index"];
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"dayChanged"
+                                                        object:self
+                                                      userInfo:dict];
+     
+    AppDelegate* appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES]; 
+    [appDelegate.viewController showCenterPanel:YES];
+
     // Navigation logic may go here. Create and push another view controller.
     /*
      <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
