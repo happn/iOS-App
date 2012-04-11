@@ -46,8 +46,24 @@
 
 - (void)dataReceivedNotification:(NSNotification*)notification
 {
+    DailyMenu *dailyMeal;
+    int day1;
+    int day2;
     self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    DailyMenu *dailyMeal = [self.appDelegate.loadedMeals objectAtIndex:0];
+    
+    for (int i = 0; i < [self.appDelegate.loadedMeals count]; i++) {
+        
+        day1 = [[NSCalendar currentCalendar] ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:[[self.appDelegate.loadedMeals objectAtIndex:i] date]];
+        day2 = [[NSCalendar currentCalendar] ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:[NSDate date]];
+        
+        if (day1 == day2)
+        {
+            dailyMeal = [self.appDelegate.loadedMeals objectAtIndex:i];
+            break;
+        }
+    }
+    
+    
     
     NSString *htmlStringTop = @"<html><title></title><body style=""background-color:transparent;"">";
     NSString *htmlStringBottom = @"</body></html>";

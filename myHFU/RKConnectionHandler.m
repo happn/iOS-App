@@ -38,13 +38,25 @@
     NSString *serverAdress = @"http://78.46.19.228:8010";
     NSString *resourcePath = @"/v1/day";
     resourcePath = [resourcePath stringByAppendingString:dateString];
+    //http://webuser.hs-furtwangen.de/~ruoffben/valid.json
+    self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    RKObjectManager *manager = [RKObjectManager objectManagerWithBaseURLString:serverAdress];
+    //[manager.mappingProvider setErrorMapping:self.dailyMealMapping];
+    [manager.mappingProvider setObjectMapping:self.dailyMealMapping forKeyPath:@"data"];
+    //[manager.mappingProvider addObjectMapping:self.dailyMealMapping];
+    [manager loadObjectsAtResourcePath:resourcePath  delegate:self.appDelegate];
+    
+    //Sinnvoll wenn man es nach ResourcePathPattern machen möchte
+    /*NSString *serverAdress = @"http://78.46.19.228:8010";
+    NSString *resourcePath = @"/v1/day";
+    resourcePath = [resourcePath stringByAppendingString:dateString];
     
     self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     RKObjectManager *manager = [RKObjectManager objectManagerWithBaseURLString:serverAdress];
     [manager.mappingProvider setErrorMapping:self.dailyMealMapping];
     [manager.mappingProvider setObjectMapping:self.dailyMealMapping forResourcePathPattern:resourcePath];
     //[manager.mappingProvider addObjectMapping:self.dailyMealMapping];
-    [manager loadObjectsAtResourcePath:resourcePath  delegate:self.appDelegate];
+    [manager loadObjectsAtResourcePath:resourcePath  delegate:self.appDelegate];*/
 }
 
 - (void) loadWeek:(NSString*) dateString
@@ -52,11 +64,11 @@
     NSString *serverAdress = @"http://78.46.19.228:8010";
     NSString *resourcePath = @"/v1/week";
     resourcePath = [resourcePath stringByAppendingString:dateString];
-    
+    //http://webuser.hs-furtwangen.de/~ruoffben/valid.json
     self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     RKObjectManager *manager = [RKObjectManager objectManagerWithBaseURLString:serverAdress];
-    [manager.mappingProvider setErrorMapping:self.dailyMealMapping];
-    [manager.mappingProvider setObjectMapping:self.dailyMealMapping forResourcePathPattern:resourcePath];
+    //[manager.mappingProvider setErrorMapping:self.dailyMealMapping];
+    [manager.mappingProvider setObjectMapping:self.dailyMealMapping forKeyPath:@"data"];
     //[manager.mappingProvider addObjectMapping:self.dailyMealMapping];
     [manager loadObjectsAtResourcePath:resourcePath  delegate:self.appDelegate];
 }

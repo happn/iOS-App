@@ -42,7 +42,7 @@
     self.window.rootViewController = self.viewController;
     
     self.connectionHandler = [[RKConnectionHandler alloc] init];
-    [self.connectionHandler loadDay:[self getCurrentDate]];
+    [self.connectionHandler loadWeek:[self getCurrentDate]];
 
     //Stuff we do not need to change
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
