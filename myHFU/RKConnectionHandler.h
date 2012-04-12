@@ -13,7 +13,7 @@
 
 @class AppDelegate;
 
-@interface RKConnectionHandler : NSObject
+@interface RKConnectionHandler : NSObject <RKRequestDelegate>
 
 @property (strong, nonatomic) RKObjectMapping *mealMapping;
 @property (strong, nonatomic) RKObjectMapping *dailyMealMapping;
@@ -21,5 +21,7 @@
 
 - (void) loadDay:(NSString*) dateString;
 - (void) loadWeek:(NSString*) dateString;
+- (void) uploadImage:(NSString*)path forMenu:(NSString*)menu;
+
 
 @end

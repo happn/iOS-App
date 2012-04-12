@@ -73,6 +73,56 @@
     [manager loadObjectsAtResourcePath:resourcePath  delegate:self.appDelegate];
 }
 
+- (void) uploadImage:(NSString*)path forMenu:(NSString*)menu
+{
+    RKParams *params = [RKParams params];
+    //RKClient *client = [[RKClient alloc] initWithBaseURLString:@"http://78.46.19.228:8010"];
+
+    NSData *imageData = [NSData dataWithContentsOfFile:path];
+    [params setData:imageData MIMEType:@"image/png" forParam:menu];
+    
+    // Log info about the serialization
+    NSLog(@"RKParams HTTPHeaderValueForContentType = %@", [params HTTPHeaderValueForContentType]);
+    NSLog(@"RKParams HTTPHeaderValueForContentLength = %d", [params HTTPHeaderValueForContentLength]);
+    
+    // Send it for processing!
+    [[RKClient sharedClient] put:@"/v1/picture" params:params delegate:self];
+
+}
+
+- (void)requestDidStartLoad:(RKRequest *)request {
+    /*_uploadButton.enabled = NO;
+    [_activityIndicatorView startAnimating];*/
+}
+
+- (void)request:(RKRequest *)request didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite 
+{
+    /*
+    _progressView.progress = (totalBytesWritten / totalBytesExpectedToWrite) * 100.0;*/
+}
+
+- (void)request:(RKRequest *)request didLoadResponse:(RKResponse *)response {
+    /*_uploadButton.enabled = YES;
+    [_activityIndicatorView stopAnimating];
+    
+    if ([response isOK]) {
+        _statusLabel.text = @"Upload Successful!";
+        _statusLabel.textColor = [UIColor greenColor];
+    } else {
+        _statusLabel.text = [NSString stringWithFormat:@"Upload failed with status code: %d", [response statusCode]];
+        _statusLabel.textColor = [UIColor redColor];
+    }*/
+}
+
+- (void)request:(RKRequest *)request didFailLoadWithError:(NSError *)error {
+    /*_uploadButton.enabled = YES;
+    [_activityIndicatorView stopAnimating];
+    _progressView.progress = 0.0;
+    
+    _statusLabel.text = [NSString stringWithFormat:@"Upload failed with error: %@", [error localizedDescription]];
+    _statusLabel.textColor = [UIColor redColor];*/
+}
+
 /*
 - (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObject:(id)object
 {

@@ -30,6 +30,9 @@
     
     self.window.rootViewController = self.viewController;
     
+    RKClient *client = [RKClient clientWithBaseURLString:@"http://78.46.19.228:8010"];
+    NSLog(@"I am your RKClient singleton : %@", [RKClient sharedClient]);
+    
     self.connectionHandler = [[RKConnectionHandler alloc] init];
     [self.connectionHandler loadWeek:[self getCurrentDate]];
 

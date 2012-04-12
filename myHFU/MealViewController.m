@@ -9,13 +9,16 @@
 #import "MealViewController.h"
 
 @implementation MealViewController
+
+@synthesize seg_MenuA = _seg_MenuA;
+@synthesize seg_MenuB = _seg_MenuB;
 @synthesize bt_MenuA = _bt_MenuA;
 @synthesize bt_MenuB = _bt_MenuB;
 @synthesize webView_MenuA = _webView_MenuA;
 @synthesize webView_MenuB = _webView_MenuB;
 
 
-@synthesize appDelegate = _appDelegate;
+@synthesize appDelegate = _appDelegate, buttonType = _buttonType;
 
 - (id)init
 {
@@ -39,9 +42,13 @@
     [super viewDidLoad];
     
     self.webView_MenuA.opaque = NO;
+    self.webView_MenuA.scrollView.scrollEnabled = NO; 
+    self.webView_MenuA.scrollView.bounces = NO;
     self.webView_MenuA.backgroundColor = [UIColor clearColor];
     
     self.webView_MenuB.opaque = NO;
+    self.webView_MenuB.scrollView.scrollEnabled = NO; 
+    self.webView_MenuB.scrollView.bounces = NO;
     self.webView_MenuB.backgroundColor = [UIColor clearColor];
     
     //self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -80,12 +87,17 @@
     NSString *htmlStringBottom = @"</body></html>";
     
     NSString *htmlSourceStringA = [[htmlStringTop stringByAppendingString:dailyMeal.menu_a.title] stringByAppendingString:htmlStringBottom];
-    
     NSString *htmlSourceStringB = [[htmlStringTop stringByAppendingString:dailyMeal.menu_b.title] stringByAppendingString:htmlStringBottom];
     
     [self.webView_MenuA loadHTMLString:htmlSourceStringA baseURL:[NSURL URLWithString:@""]];
     [self.webView_MenuB loadHTMLString:htmlSourceStringB baseURL:[NSURL URLWithString:@""]];
-
+    
+    
+    [self.seg_MenuA setTitle:[[NSString stringWithString:@"▼ "] stringByAppendingString:[dailyMeal.menu_a.downVotes stringValue]] forSegmentAtIndex:0];
+    [self.seg_MenuA setTitle:[[dailyMeal.menu_a.upVotes stringValue] stringByAppendingString:@" ▲"] forSegmentAtIndex:1];
+    
+    [self.seg_MenuB setTitle:[[NSString stringWithString:@"▼ "] stringByAppendingString:[dailyMeal.menu_b.downVotes stringValue]] forSegmentAtIndex:0];
+    [self.seg_MenuB setTitle:[[dailyMeal.menu_b.upVotes stringValue] stringByAppendingString:@" ▲"] forSegmentAtIndex:1];
     //[self.view setNeedsDisplay]; 
 }
 /*- (id)initWithFrame:(CGRect)frame
@@ -107,17 +119,27 @@
 */
 
 - (IBAction)takePictureA:(id)sender {
+    self.buttonType = @"menu_a";
     [self takePictureOfMeal];
-    [self changeButtonImage];
 }
 
 - (IBAction)takePictureB:(id)sender {
+    self.buttonType = @"menu_b";
     [self takePictureOfMeal];
-    [self changeButtonImage];
+}
+
+- (IBAction)seg_MenuAVote:(id)sender {
+}
+
+- (IBAction)seg_MenuBVote:(id)sender {
+}
+
+- (IBAction)seg_MenuA:(id)sender {
 }
 
 - (void) takePictureOfMeal
 {
+    /*
     // Create image picker controller
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
     
@@ -129,10 +151,17 @@
     
     // Show image picker
     [self presentModalViewController:imagePicker animated:YES];
+     */
+    
+    RKConnectionHandler *handler = [[RKConnectionHandler alloc] init];
+    
+    [handler uploadImage:[[NSBundle mainBundle] pathForResource:@"FuFunkLogo" ofType:@"png"] forMenu:@"menu_a"];
 }
 
 - (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
+    NSError *error;
+    
     // Access the uncropped image from info dictionary
     UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
     
@@ -141,20 +170,26 @@
     
     // Create paths to output images
     //NSString  *pngPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/Test.png"];
-    NSString  *jpgPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/Test.jpg"];
+    NSString *pathString = @"Documents";
+    pathString = [[[pathString stringByAppendingString:self.appDelegate.getCurrentDate] stringByAppendingString:self.buttonType] stringByAppendingString:@".jpg"];
+    NSString  *jpgPath = [NSHomeDirectory() stringByAppendingPathComponent:pathString];
     
     // Write a UIImage to JPEG with minimum compression (best quality)
     // The value 'image' must be a UIImage object
     // The value '1.0' represents image compression quality as value from 0.0 to 1.0
-    [UIImageJPEGRepresentation(image, 0.6) writeToFile:jpgPath atomically:YES];
+    [UIImageJPEGRepresentation(image, 0.6) writeToFile:jpgPath options:NSDataWritingAtomic error:&error];
     
-    // Write image to PNG
-    //[UIImagePNGRepresentation(image) writeToFile:pngPath atomically:YES];
-    
+    if (!error)
+    {
+        [self changeButtonImage:self.buttonType];
+    }
+    else 
+    {
+        NSLog(@"Picture not saved correctly");
+    }
+
     // Let's check to see if files were successfully written...
-    
     // Create file manager
-    NSError *error;
     NSFileManager *fileMgr = [NSFileManager defaultManager];
     
     // Point to Document directory
@@ -166,29 +201,21 @@
     [picker dismissModalViewControllerAnimated:YES];
 }
 
-- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
+- (void) changeButtonImage:(NSString *)button
 {
-    UIAlertView *alert;
+    NSString *pathString = @"Documents";
+    pathString = [[[pathString stringByAppendingString:self.appDelegate.getCurrentDate] stringByAppendingString:self.buttonType] stringByAppendingString:@".jpg"];
+    UIImage *image = [[UIImage alloc] initWithContentsOfFile:[NSHomeDirectory() stringByAppendingPathComponent:pathString]];
     
-    // Unable to save the image  
-    if (error)
-        alert = [[UIAlertView alloc] initWithTitle:@"Error" 
-                                           message:@"Unable to save image to Photo Album." 
-                                          delegate:self cancelButtonTitle:@"Ok" 
-                                 otherButtonTitles:nil];
-    else // All is well
-        alert = [[UIAlertView alloc] initWithTitle:@"Success" 
-                                           message:@"Image saved to Photo Album." 
-                                          delegate:self cancelButtonTitle:@"Ok" 
-                                 otherButtonTitles:nil];
-    [alert show];
-}
-
-- (void) changeButtonImage
-{
-    UIImage *image = [[UIImage alloc] initWithContentsOfFile:[NSHomeDirectory() stringByAppendingPathComponent:@"Documents/Test.jpg"]];
-    
-    [[self bt_MenuA] setBackgroundImage:image forState:UIControlStateNormal];
+    if ([button isEqualToString:@"menu_a"])
+    {
+        [[self bt_MenuA] setBackgroundImage:image forState:UIControlStateNormal];
+    }
+    else 
+    {
+        [[self bt_MenuB] setBackgroundImage:image forState:UIControlStateNormal];
+    }
+    [self.view setNeedsDisplay];
 }
 
 - (void)viewDidUnload {
@@ -198,6 +225,11 @@
     [self setBt_MenuB:nil];
     [self setWebView_MenuA:nil];
     [self setWebView_MenuB:nil];
+    [self setSeg_MenuB:nil];
+    [self setSeg_MenuA:nil];
+    [self setSeg_MenuB:nil];
+
     [super viewDidUnload];
 }
+
 @end
