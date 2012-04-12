@@ -9,13 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "DailyMenu.h"
 #import "AppDelegate.h"
+#import "UIImageView+WebCache.h"
 
-@interface MealViewController : UIViewController <RKRequestDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@class AppDelegate;
+
+@interface MealViewController : UIViewController <SDWebImageManagerDelegate, RKRequestDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 {
     
 }
 @property (assign, nonatomic) AppDelegate *appDelegate;
 @property (assign, nonatomic) NSString *buttonType;
+@property (weak, nonatomic)UIAlertView *uploadAlert;
 
 - (IBAction)takePictureA:(id)sender;
 - (IBAction)takePictureB:(id)sender;
@@ -30,6 +34,7 @@
 @property (weak, nonatomic) IBOutlet UIWebView *webView_MenuB;
 
 - (void) changeButtonImage:(NSString *)button;
+- (void) uploadPicture:(NSString*) menuType pathForMenuPicture:(NSString*) path;
 - (void) takePictureOfMeal;
 
 @end

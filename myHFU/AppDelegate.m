@@ -10,14 +10,11 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import "AppDelegate.h"
 
-#import "JASidePanelController.h"
-#import "LeftTableViewController.h"
-#import "MealViewController.h"
 
 
 @implementation AppDelegate
 
-@synthesize window = _window, allMeals = _allMeals, moviePlayer = _moviePlayer, playerIsPlaying = _playerIsPlaying, connectionHandler = _connectionHandler, loadedMeals = _loadedMeals;
+@synthesize window = _window, allMeals = _allMeals, moviePlayer = _moviePlayer, playerIsPlaying = _playerIsPlaying, loadedMeals = _loadedMeals, baseURLString = _baseURLString;
 @synthesize viewController = _viewController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -30,11 +27,14 @@
     
     self.window.rootViewController = self.viewController;
     
-    RKClient *client = [RKClient clientWithBaseURLString:@"http://78.46.19.228:8010"];
+    self.baseURLString = @"http://78.46.19.228:8010";
+    self.baseURLCouchDbString =  @"http://78.46.19.228:5984";
+    
+    RKClient *client = [RKClient clientWithBaseURLString:self.baseURLString];
     NSLog(@"I am your RKClient singleton : %@", [RKClient sharedClient]);
     
-    self.connectionHandler = [[RKConnectionHandler alloc] init];
-    [self.connectionHandler loadWeek:[self getCurrentDate]];
+    RKConnectionHandler *connectionHandler = [[RKConnectionHandler alloc] init];
+    [connectionHandler loadWeek:[self getCurrentDate]];
 
     //Stuff we do not need to change
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
@@ -125,6 +125,30 @@
     
     NSDate *currentDate = [NSDate date]; // aktuelles Datum und die Uhrzeit
     NSString *dateString = [dateFormatter stringFromDate:currentDate];
+    
+    return dateString;
+}
+
+- (NSString*)getCurrentDateWithoutSlash
+{
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"ddMMyyyy"];
+    
+    
+    NSDate *currentDate = [NSDate date]; // aktuelles Datum und die Uhrzeit
+    NSString *dateString = [dateFormatter stringFromDate:currentDate];
+    
+    return dateString;
+}
+
+- (NSString*)getStringDateFromDate:(NSDate*)date
+{
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"ddMMyyyy"];
+    
+    NSString *dateString = [dateFormatter stringFromDate:date];
     
     return dateString;
 }

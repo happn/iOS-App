@@ -12,19 +12,25 @@
 #import "RKRequestExamples.h"
 #import "RKConnectionHandler.h"
 #import "WebSocketTest.h"
+#import "JASidePanelController.h"
+#import "LeftTableViewController.h"
+#import "MealViewController.h"
 
 @class JASidePanelController;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, RKObjectLoaderDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (nonatomic, retain) NSArray *loadedMeals;
+@property (strong, nonatomic) NSArray *loadedMeals;
 @property (strong, nonatomic) NSArray *allMeals;
+@property (strong, nonatomic) NSString *baseURLString;
+@property (strong, nonatomic) NSString *baseURLCouchDbString;
 @property (strong, nonatomic) MPMoviePlayerController *moviePlayer;
 @property (assign, nonatomic) BOOL playerIsPlaying;
 @property (strong, nonatomic) JASidePanelController *viewController;
-@property (strong, nonatomic) RKConnectionHandler *connectionHandler;
 
 - (NSString*)getCurrentDate;
+- (NSString*)getCurrentDateWithoutSlash;
+- (NSString*)getStringDateFromDate:(NSDate*)date;
 
 @end

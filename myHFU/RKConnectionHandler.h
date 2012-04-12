@@ -10,10 +10,11 @@
 #import <Foundation/Foundation.h>
 #import "Meal.h"
 #import "DailyMenu.h"
+#import "AppDelegate.h"
 
 @class AppDelegate;
 
-@interface RKConnectionHandler : NSObject <RKRequestDelegate>
+@interface RKConnectionHandler : NSObject
 
 @property (strong, nonatomic) RKObjectMapping *mealMapping;
 @property (strong, nonatomic) RKObjectMapping *dailyMealMapping;
@@ -21,7 +22,7 @@
 
 - (void) loadDay:(NSString*) dateString;
 - (void) loadWeek:(NSString*) dateString;
-- (void) uploadImage:(NSString*)path forMenu:(NSString*)menu;
+- (void) uploadImage:(NSString*)path forMenu:(NSString*)menu setDelegate:(id)object;
 
 
 @end

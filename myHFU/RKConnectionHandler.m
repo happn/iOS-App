@@ -35,48 +35,33 @@
 
 - (void) loadDay:(NSString*) dateString
 {
-    NSString *serverAdress = @"http://78.46.19.228:8010";
+    self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    NSString *serverAdress = self.appDelegate.baseURLString;
     NSString *resourcePath = @"/v1/day";
     resourcePath = [resourcePath stringByAppendingString:dateString];
-    //http://webuser.hs-furtwangen.de/~ruoffben/valid.json
-    self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    
     RKObjectManager *manager = [RKObjectManager objectManagerWithBaseURLString:serverAdress];
-    //[manager.mappingProvider setErrorMapping:self.dailyMealMapping];
     [manager.mappingProvider setObjectMapping:self.dailyMealMapping forKeyPath:@"data"];
-    //[manager.mappingProvider addObjectMapping:self.dailyMealMapping];
     [manager loadObjectsAtResourcePath:resourcePath  delegate:self.appDelegate];
-    
-    //Sinnvoll wenn man es nach ResourcePathPattern machen möchte
-    /*NSString *serverAdress = @"http://78.46.19.228:8010";
-    NSString *resourcePath = @"/v1/day";
-    resourcePath = [resourcePath stringByAppendingString:dateString];
-    
-    self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    RKObjectManager *manager = [RKObjectManager objectManagerWithBaseURLString:serverAdress];
-    [manager.mappingProvider setErrorMapping:self.dailyMealMapping];
-    [manager.mappingProvider setObjectMapping:self.dailyMealMapping forResourcePathPattern:resourcePath];
-    //[manager.mappingProvider addObjectMapping:self.dailyMealMapping];
-    [manager loadObjectsAtResourcePath:resourcePath  delegate:self.appDelegate];*/
 }
 
 - (void) loadWeek:(NSString*) dateString
 {
-    NSString *serverAdress = @"http://78.46.19.228:8010";
+    self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    NSString *serverAdress = self.appDelegate.baseURLString;
     NSString *resourcePath = @"/v1/week";
     resourcePath = [resourcePath stringByAppendingString:dateString];
-    //http://webuser.hs-furtwangen.de/~ruoffben/valid.json
-    self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    
     RKObjectManager *manager = [RKObjectManager objectManagerWithBaseURLString:serverAdress];
-    //[manager.mappingProvider setErrorMapping:self.dailyMealMapping];
     [manager.mappingProvider setObjectMapping:self.dailyMealMapping forKeyPath:@"data"];
-    //[manager.mappingProvider addObjectMapping:self.dailyMealMapping];
     [manager loadObjectsAtResourcePath:resourcePath  delegate:self.appDelegate];
 }
 
-- (void) uploadImage:(NSString*)path forMenu:(NSString*)menu
+- (void) uploadImage:(NSString*)path forMenu:(NSString*)menu setDelegate:(id)object
 {
     RKParams *params = [RKParams params];
-    //RKClient *client = [[RKClient alloc] initWithBaseURLString:@"http://78.46.19.228:8010"];
 
     NSData *imageData = [NSData dataWithContentsOfFile:path];
     [params setData:imageData MIMEType:@"image/png" forParam:menu];
@@ -86,41 +71,7 @@
     NSLog(@"RKParams HTTPHeaderValueForContentLength = %d", [params HTTPHeaderValueForContentLength]);
     
     // Send it for processing!
-    [[RKClient sharedClient] put:@"/v1/picture" params:params delegate:self];
-
-}
-
-- (void)requestDidStartLoad:(RKRequest *)request {
-    /*_uploadButton.enabled = NO;
-    [_activityIndicatorView startAnimating];*/
-}
-
-- (void)request:(RKRequest *)request didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite 
-{
-    /*
-    _progressView.progress = (totalBytesWritten / totalBytesExpectedToWrite) * 100.0;*/
-}
-
-- (void)request:(RKRequest *)request didLoadResponse:(RKResponse *)response {
-    /*_uploadButton.enabled = YES;
-    [_activityIndicatorView stopAnimating];
-    
-    if ([response isOK]) {
-        _statusLabel.text = @"Upload Successful!";
-        _statusLabel.textColor = [UIColor greenColor];
-    } else {
-        _statusLabel.text = [NSString stringWithFormat:@"Upload failed with status code: %d", [response statusCode]];
-        _statusLabel.textColor = [UIColor redColor];
-    }*/
-}
-
-- (void)request:(RKRequest *)request didFailLoadWithError:(NSError *)error {
-    /*_uploadButton.enabled = YES;
-    [_activityIndicatorView stopAnimating];
-    _progressView.progress = 0.0;
-    
-    _statusLabel.text = [NSString stringWithFormat:@"Upload failed with error: %@", [error localizedDescription]];
-    _statusLabel.textColor = [UIColor redColor];*/
+    [[RKClient sharedClient] put:@"/v1/picture" params:params delegate:object];
 }
 
 /*

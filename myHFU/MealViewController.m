@@ -18,7 +18,7 @@
 @synthesize webView_MenuB = _webView_MenuB;
 
 
-@synthesize appDelegate = _appDelegate, buttonType = _buttonType;
+@synthesize appDelegate = _appDelegate, buttonType = _buttonType, uploadAlert = _uploadAlert;
 
 - (id)init
 {
@@ -33,6 +33,8 @@
                                                  selector:@selector(dataReceivedNotification:)
                                                      name:@"dayChanged"
                                                    object:nil];
+        
+         
     }
     return self;
 }
@@ -92,6 +94,22 @@
     [self.webView_MenuA loadHTMLString:htmlSourceStringA baseURL:[NSURL URLWithString:@""]];
     [self.webView_MenuB loadHTMLString:htmlSourceStringB baseURL:[NSURL URLWithString:@""]];
     
+    if (![dailyMeal.menu_a.picture isEqualToString:@""])
+    {
+        SDWebImageManager *manager = [SDWebImageManager sharedManager];
+        NSString *pathString = [[[[NSString stringWithString:self.appDelegate.baseURLCouchDbString] stringByAppendingString:@"/hfuapp/"] stringByAppendingString:[self.appDelegate getStringDateFromDate:dailyMeal.date]] stringByAppendingString:@"/menu_a"];
+        
+        [manager downloadWithURL:[NSURL URLWithString:pathString] delegate:self];
+    }
+    
+    if (![dailyMeal.menu_b.picture isEqualToString:@""]) 
+    {
+        SDWebImageManager *manager = [SDWebImageManager sharedManager];
+        
+        NSString *pathString = [[[[NSString stringWithString:self.appDelegate.baseURLCouchDbString] stringByAppendingString:@"/hfuapp/"] stringByAppendingString:[self.appDelegate getStringDateFromDate:dailyMeal.date]] stringByAppendingString:@"/menu_b"];
+        
+        [manager downloadWithURL:[NSURL URLWithString:pathString] delegate:self];
+    }
     
     [self.seg_MenuA setTitle:[[NSString stringWithString:@"▼ "] stringByAppendingString:[dailyMeal.menu_a.downVotes stringValue]] forSegmentAtIndex:0];
     [self.seg_MenuA setTitle:[[dailyMeal.menu_a.upVotes stringValue] stringByAppendingString:@" ▲"] forSegmentAtIndex:1];
@@ -100,6 +118,40 @@
     [self.seg_MenuB setTitle:[[dailyMeal.menu_b.upVotes stringValue] stringByAppendingString:@" ▲"] forSegmentAtIndex:1];
     //[self.view setNeedsDisplay]; 
 }
+
+- (void)webImageManager:(SDWebImageManager *)imageManager didFinishWithImage:(UIImage *)image
+{
+    NSMutableArray *cacheURLs = [imageManager valueForKey:@"cacheURLs"];
+    NSMutableDictionary *downloaderForURL = [imageManager valueForKey:@"downloaderForURL"];
+    
+    if ([cacheURLs count] != 0)
+    {
+        NSString *menuType = [[cacheURLs objectAtIndex:0] absoluteString];
+        if ([menuType rangeOfString:@"menu_a"].location == NSNotFound) {
+            [[self bt_MenuB] setBackgroundImage:image forState:UIControlStateNormal];
+        } else {
+            [[self bt_MenuA] setBackgroundImage:image forState:UIControlStateNormal];
+        }
+    }
+    else if ([downloaderForURL count] != 0)
+    {
+        NSArray *keyArray = [downloaderForURL allKeys];
+        if ([keyArray count] != 0)
+        {
+            NSString *menuType = [[keyArray objectAtIndex:0] absoluteString];
+            if ([menuType rangeOfString:@"menu_a"].location == NSNotFound) {
+                [[self bt_MenuB] setBackgroundImage:image forState:UIControlStateNormal];
+            } else {
+                [[self bt_MenuA] setBackgroundImage:image forState:UIControlStateNormal];
+            }
+        }
+    }
+    
+    
+    
+    
+}
+
 /*- (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -139,7 +191,6 @@
 
 - (void) takePictureOfMeal
 {
-    /*
     // Create image picker controller
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
     
@@ -151,11 +202,6 @@
     
     // Show image picker
     [self presentModalViewController:imagePicker animated:YES];
-     */
-    
-    RKConnectionHandler *handler = [[RKConnectionHandler alloc] init];
-    
-    [handler uploadImage:[[NSBundle mainBundle] pathForResource:@"FuFunkLogo" ofType:@"png"] forMenu:@"menu_a"];
 }
 
 - (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
@@ -164,6 +210,13 @@
     
     // Access the uncropped image from info dictionary
     UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+    CGSize newSize =  CGSizeMake(640, 960);
+
+    UIGraphicsBeginImageContext(newSize);
+    [image drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
+    image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
     
     // Save image
     //UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
@@ -201,6 +254,7 @@
     [picker dismissModalViewControllerAnimated:YES];
 }
 
+
 - (void) changeButtonImage:(NSString *)button
 {
     NSString *pathString = @"Documents";
@@ -210,12 +264,73 @@
     if ([button isEqualToString:@"menu_a"])
     {
         [[self bt_MenuA] setBackgroundImage:image forState:UIControlStateNormal];
+        [self uploadPicture:@"menu_a" pathForMenuPicture:[NSHomeDirectory() stringByAppendingPathComponent:pathString]];
     }
     else 
     {
         [[self bt_MenuB] setBackgroundImage:image forState:UIControlStateNormal];
+        [self uploadPicture:@"menu_b" pathForMenuPicture:[NSHomeDirectory() stringByAppendingPathComponent:pathString]];
     }
     [self.view setNeedsDisplay];
+}
+
+- (void)uploadPicture:(NSString*) menuType pathForMenuPicture:(NSString*) path
+{
+    RKConnectionHandler *handler = [[RKConnectionHandler alloc] init];
+    
+    self.uploadAlert = [[UIAlertView alloc] initWithTitle:@"Upload in progress, please wait" message:nil delegate:self
+                       cancelButtonTitle:nil otherButtonTitles:nil];
+    
+    
+    UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] 
+                                             initWithActivityIndicatorStyle: 
+                                             UIActivityIndicatorViewStyleWhiteLarge];
+    activityView.center = CGPointMake(self.uploadAlert.bounds.size.width / 2.0f,
+                                      self.uploadAlert.bounds.size.height - 40.0f);
+    [activityView startAnimating];
+    [self.uploadAlert addSubview:activityView];
+    [self.uploadAlert show];
+    
+    [handler uploadImage:path forMenu:menuType setDelegate:self];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    
+}
+
+- (void)requestDidStartLoad:(RKRequest *)request {
+    
+    /*_uploadButton.enabled = NO;
+     [_activityIndicatorView startAnimating];*/
+}
+
+- (void)request:(RKRequest *)request didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite 
+{
+    /*
+     _progressView.progress = (totalBytesWritten / totalBytesExpectedToWrite) * 100.0;*/
+}
+
+- (void)request:(RKRequest *)request didLoadResponse:(RKResponse *)response {
+    /*_uploadButton.enabled = YES;
+     [_activityIndicatorView stopAnimating];
+     
+     if ([response isOK]) {
+     _statusLabel.text = @"Upload Successful!";
+     _statusLabel.textColor = [UIColor greenColor];
+     } else {
+     _statusLabel.text = [NSString stringWithFormat:@"Upload failed with status code: %d", [response statusCode]];
+     _statusLabel.textColor = [UIColor redColor];
+     }*/
+}
+
+- (void)request:(RKRequest *)request didFailLoadWithError:(NSError *)error {
+    /*_uploadButton.enabled = YES;
+     [_activityIndicatorView stopAnimating];
+     _progressView.progress = 0.0;
+     
+     _statusLabel.text = [NSString stringWithFormat:@"Upload failed with error: %@", [error localizedDescription]];
+     _statusLabel.textColor = [UIColor redColor];*/
 }
 
 - (void)viewDidUnload {

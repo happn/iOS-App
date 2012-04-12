@@ -31,6 +31,8 @@
 		4766D5F2148D879C00803585 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4766D5F1148D879B00803585 /* Icon.png */; };
 		4766D5F4148D87A200803585 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4766D5F3148D87A100803585 /* Icon@2x.png */; };
 		477366A2152C509300EF53B5 /* DailyMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 477366A1152C509300EF53B5 /* DailyMenu.m */; };
+		478716DC153711F300492726 /* libSDWebImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 478716DA1537091700492726 /* libSDWebImage.a */; };
+		478716E31537132300492726 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 478716E21537132300492726 /* MapKit.framework */; };
 		478EE7521484EE3C0094CEC2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 478EE7511484EE3C0094CEC2 /* UIKit.framework */; };
 		478EE7541484EE3C0094CEC2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 478EE7531484EE3C0094CEC2 /* Foundation.framework */; };
 		478EE7561484EE3C0094CEC2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 478EE7551484EE3C0094CEC2 /* CoreGraphics.framework */; };
@@ -116,6 +118,27 @@
 			remoteGlobalIDString = F6B2082C1450F597009315AF;
 			remoteInfo = SocketRocket;
 		};
+		478716D91537091700492726 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 478716D21537091700492726 /* SDWebImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 53922D6F148C55820056699D;
+			remoteInfo = SDWebImage;
+		};
+		478716DE153712C800492726 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 478716D21537091700492726 /* SDWebImage.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 53922D6E148C55810056699D;
+			remoteInfo = SDWebImage;
+		};
+		478716E0153712CD00492726 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4739C96E152338E400F611A1 /* RestKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 25160D1514564E810060A5C5;
+			remoteInfo = RestKit;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -150,6 +173,8 @@
 		4766D5F3148D87A100803585 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		477366A0152C509300EF53B5 /* DailyMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DailyMenu.h; sourceTree = "<group>"; };
 		477366A1152C509300EF53B5 /* DailyMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DailyMenu.m; sourceTree = "<group>"; };
+		478716D21537091700492726 /* SDWebImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDWebImage.xcodeproj; path = SDWebImage/SDWebImage.xcodeproj; sourceTree = "<group>"; };
+		478716E21537132300492726 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		478EE74D1484EE3C0094CEC2 /* myHFU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myHFU.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		478EE7511484EE3C0094CEC2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		478EE7531484EE3C0094CEC2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -182,6 +207,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				478716E31537132300492726 /* MapKit.framework in Frameworks */,
+				478716DC153711F300492726 /* libSDWebImage.a in Frameworks */,
 				47444CAE1534740400533D24 /* libRestKit.a in Frameworks */,
 				47551D4D152DA5CE001A5AD1 /* QuartzCore.framework in Frameworks */,
 				47551D4A152DA5B2001A5AD1 /* libSocketRocket.a in Frameworks */,
@@ -244,9 +271,18 @@
 			name = images;
 			sourceTree = "<group>";
 		};
+		478716D31537091700492726 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				478716DA1537091700492726 /* libSDWebImage.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		478EE7421484EE3B0094CEC2 = {
 			isa = PBXGroup;
 			children = (
+				478716D21537091700492726 /* SDWebImage.xcodeproj */,
 				47551D3A152DA584001A5AD1 /* SocketRocket.xcodeproj */,
 				4739C96E152338E400F611A1 /* RestKit.xcodeproj */,
 				4766D5F3148D87A100803585 /* Icon@2x.png */,
@@ -268,6 +304,7 @@
 		478EE7501484EE3C0094CEC2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				478716E21537132300492726 /* MapKit.framework */,
 				47EEA8F9152A3351005E109A /* libicucore.dylib */,
 				4739C968152318D600F611A1 /* libxml2.dylib */,
 				4739C966152318C900F611A1 /* QuartzCore.framework */,
@@ -341,6 +378,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				478716E1153712CD00492726 /* PBXTargetDependency */,
+				478716DF153712C800492726 /* PBXTargetDependency */,
 				47551D4C152DA5B9001A5AD1 /* PBXTargetDependency */,
 			);
 			name = myHFU;
@@ -372,6 +411,10 @@
 				{
 					ProductGroup = 4739C96F152338E400F611A1 /* Products */;
 					ProjectRef = 4739C96E152338E400F611A1 /* RestKit.xcodeproj */;
+				},
+				{
+					ProductGroup = 478716D31537091700492726 /* Products */;
+					ProjectRef = 478716D21537091700492726 /* SDWebImage.xcodeproj */;
 				},
 				{
 					ProductGroup = 47551D3B152DA584001A5AD1 /* Products */;
@@ -442,6 +485,13 @@
 			remoteRef = 47551D48152DA584001A5AD1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		478716DA1537091700492726 /* libSDWebImage.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSDWebImage.a;
+			remoteRef = 478716D91537091700492726 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -497,6 +547,16 @@
 			isa = PBXTargetDependency;
 			name = SocketRocket;
 			targetProxy = 47551D4B152DA5B9001A5AD1 /* PBXContainerItemProxy */;
+		};
+		478716DF153712C800492726 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SDWebImage;
+			targetProxy = 478716DE153712C800492726 /* PBXContainerItemProxy */;
+		};
+		478716E1153712CD00492726 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RestKit;
+			targetProxy = 478716E0153712CD00492726 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -576,6 +636,7 @@
 				HEADER_SEARCH_PATHS = (
 					"\"$(SOURCE_ROOT)/SocketRocket/Build\"",
 					"$(BUILT_PRODUCTS_DIR)/../../Headers",
+					"$(BUILT_PRODUCTS_DIR)/SDWebImage",
 				);
 				INFOPLIST_FILE = "myHFU/myHFU-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
@@ -599,6 +660,7 @@
 				HEADER_SEARCH_PATHS = (
 					"\"$(SOURCE_ROOT)/SocketRocket/Build\"",
 					"$(BUILT_PRODUCTS_DIR)/../../Headers",
+					"$(BUILT_PRODUCTS_DIR)/SDWebImage",
 				);
 				INFOPLIST_FILE = "myHFU/myHFU-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
