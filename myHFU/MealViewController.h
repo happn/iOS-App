@@ -11,13 +11,15 @@
 #import "AppDelegate.h"
 #import "UIImageView+WebCache.h"
 #import <Three20/Three20.h>
+#import "FullScreenViewController.h"
 
 @class AppDelegate;
 
-@interface MealViewController : UIViewController <SDWebImageManagerDelegate, TTImageViewDelegate, RKRequestDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface MealViewController : UIViewController <TTImageViewDelegate, RKRequestDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 {
     
 }
+@property (assign, nonatomic) DailyMenu *meals;
 @property (assign, nonatomic) AppDelegate *appDelegate;
 @property (assign, nonatomic) NSString *buttonType;
 @property (weak, nonatomic)UIAlertView *uploadAlert;

@@ -18,7 +18,7 @@
 @synthesize webView_MenuB = _webView_MenuB;
 
 
-@synthesize appDelegate = _appDelegate, buttonType = _buttonType, uploadAlert = _uploadAlert;
+@synthesize appDelegate = _appDelegate, buttonType = _buttonType, uploadAlert = _uploadAlert, meals = _meals;
 
 - (id)init
 {
@@ -72,6 +72,7 @@
             
             if (dayInArray == today)
             {
+                self.meals = [self.appDelegate.loadedMeals objectAtIndex:i];
                 dailyMeal = [self.appDelegate.loadedMeals objectAtIndex:i];
                 break;
             }
@@ -105,30 +106,20 @@
 {
     if (![dailyMeal.menu_a.picture isEqualToString:@""])
     {
-        TTImageView *imageView = [[TTImageView alloc] initWithFrame:CGRectMake(0, 0, 101, 101)];
-        imageView.urlPath = [[[[NSString stringWithString:self.appDelegate.baseURLCouchDbString] stringByAppendingString:@"/hfuapp/"] stringByAppendingString:[self.appDelegate getStringDateFromDate:dailyMeal.date]] stringByAppendingString:@"/menu_a"];
-        imageView.backgroundColor = [UIColor clearColor]; 
-        imageView.defaultImage = nil;
-        imageView.delegate = self;
+        TTPhotoView *photoView =[[TTPhotoView alloc] initWithFrame:CGRectMake(0, 0, 101, 101)];
+        photoView.urlPath = [[[[NSString stringWithString:self.appDelegate.baseURLCouchDbString] stringByAppendingString:@"/hfuapp/"] stringByAppendingString:[self.appDelegate getStringDateFromDate:dailyMeal.date]] stringByAppendingString:@"/menu_a"];
         
-        [self.bt_MenuA setImage:imageView.image forState:UIControlStateNormal];
-        //[self.bt_MenuA addSubview:imageView];
-        
-        //[imageView reload];
-        
-        /*SDWebImageManager *manager = [SDWebImageManager sharedManager];
-         NSString *pathString = [[[[NSString stringWithString:self.appDelegate.baseURLCouchDbString] stringByAppendingString:@"/hfuapp/"] stringByAppendingString:[self.appDelegate getStringDateFromDate:dailyMeal.date]] stringByAppendingString:@"/menu_a"];
-         
-         [manager downloadWithURL:[NSURL URLWithString:pathString] delegate:self];*/
+        [photoView loadImage];
+        [self.bt_MenuA setImage:photoView.image forState:UIControlStateNormal];
     }
     
     if (![dailyMeal.menu_b.picture isEqualToString:@""]) 
     {
-        SDWebImageManager *manager = [SDWebImageManager sharedManager];
+        TTPhotoView *photoView =[[TTPhotoView alloc] initWithFrame:CGRectMake(0, 0, 101, 101)];
+        photoView.urlPath = [[[[NSString stringWithString:self.appDelegate.baseURLCouchDbString] stringByAppendingString:@"/hfuapp/"] stringByAppendingString:[self.appDelegate getStringDateFromDate:dailyMeal.date]] stringByAppendingString:@"/menu_b"];
         
-        NSString *pathString = [[[[NSString stringWithString:self.appDelegate.baseURLCouchDbString] stringByAppendingString:@"/hfuapp/"] stringByAppendingString:[self.appDelegate getStringDateFromDate:dailyMeal.date]] stringByAppendingString:@"/menu_b"];
-        
-        [manager downloadWithURL:[NSURL URLWithString:pathString] delegate:self];
+        [photoView loadImage];
+        [self.bt_MenuB setImage:photoView.image forState:UIControlStateNormal];
     }
     
     [self.seg_MenuA setTitle:[[NSString stringWithString:@"▼ "] stringByAppendingString:[dailyMeal.menu_a.downVotes stringValue]] forSegmentAtIndex:0];
@@ -164,35 +155,6 @@
     }
 }
 
-- (void)webImageManager:(SDWebImageManager *)imageManager didFinishWithImage:(UIImage *)image
-{
-    NSMutableArray *cacheURLs = [imageManager valueForKey:@"cacheURLs"];
-    NSMutableDictionary *downloaderForURL = [imageManager valueForKey:@"downloaderForURL"];
-    
-    if ([cacheURLs count] != 0)
-    {
-        NSString *menuType = [[cacheURLs objectAtIndex:0] absoluteString];
-        if ([menuType rangeOfString:@"menu_a"].location == NSNotFound) {
-            [[self bt_MenuB] setBackgroundImage:image forState:UIControlStateNormal];
-        } else {
-            [[self bt_MenuA] setBackgroundImage:image forState:UIControlStateNormal];
-        }
-    }
-    else if ([downloaderForURL count] != 0)
-    {
-        NSArray *keyArray = [downloaderForURL allKeys];
-        if ([keyArray count] != 0)
-        {
-            NSString *menuType = [[keyArray objectAtIndex:0] absoluteString];
-            if ([menuType rangeOfString:@"menu_a"].location == NSNotFound) {
-                [[self bt_MenuB] setBackgroundImage:image forState:UIControlStateNormal];
-            } else {
-                [[self bt_MenuA] setBackgroundImage:image forState:UIControlStateNormal];
-            }
-        }
-    }
-}
-
 /**
  * Called when the image begins loading asynchronously.
  */
@@ -219,7 +181,16 @@
 
 - (IBAction)takePictureA:(id)sender {
     self.buttonType = @"menu_a";
-    [self takePictureOfMeal];
+    
+    if ([self.bt_MenuA imageForState:UIControlStateNormal] == nil)
+    {
+        [self takePictureOfMeal];
+    }
+    else 
+    {
+        [self presentFullScreenPicture];
+    }
+    
 }
 
 - (IBAction)takePictureB:(id)sender {
@@ -234,6 +205,14 @@
 }
 
 - (IBAction)seg_MenuA:(id)sender {
+}
+
+- (void) presentFullScreenPicture
+{
+    NSString* path = [[[[NSString stringWithString:self.appDelegate.baseURLCouchDbString] stringByAppendingString:@"/hfuapp/"] stringByAppendingString:[self.appDelegate getStringDateFromDate:self.meals.date]] stringByAppendingString:@"/menu_a"];
+    
+    FullScreenViewController *fullScreenViewController = [[FullScreenViewController alloc] initWithPicturePath:path];
+    [self presentModalViewController:fullScreenViewController animated:YES];
 }
 
 - (void) takePictureOfMeal

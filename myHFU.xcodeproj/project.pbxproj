@@ -31,7 +31,8 @@
 		4766D5F2148D879C00803585 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4766D5F1148D879B00803585 /* Icon.png */; };
 		4766D5F4148D87A200803585 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4766D5F3148D87A100803585 /* Icon@2x.png */; };
 		477366A2152C509300EF53B5 /* DailyMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 477366A1152C509300EF53B5 /* DailyMenu.m */; };
-		478716DC153711F300492726 /* libSDWebImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 478716DA1537091700492726 /* libSDWebImage.a */; };
+		4773F5A1153C36580011C7E5 /* FullScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4773F59F153C36580011C7E5 /* FullScreenViewController.m */; };
+		4773F5A2153C36580011C7E5 /* FullScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4773F5A0153C36580011C7E5 /* FullScreenViewController.xib */; };
 		478716E31537132300492726 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 478716E21537132300492726 /* MapKit.framework */; };
 		478EE7521484EE3C0094CEC2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 478EE7511484EE3C0094CEC2 /* UIKit.framework */; };
 		478EE7541484EE3C0094CEC2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 478EE7531484EE3C0094CEC2 /* Foundation.framework */; };
@@ -125,20 +126,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = F6B2082C1450F597009315AF;
 			remoteInfo = SocketRocket;
-		};
-		478716D91537091700492726 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 478716D21537091700492726 /* SDWebImage.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 53922D6F148C55820056699D;
-			remoteInfo = SDWebImage;
-		};
-		478716DE153712C800492726 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 478716D21537091700492726 /* SDWebImage.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 53922D6E148C55810056699D;
-			remoteInfo = SDWebImage;
 		};
 		478716E0153712CD00492726 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -279,7 +266,9 @@
 		4766D5F3148D87A100803585 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		477366A0152C509300EF53B5 /* DailyMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DailyMenu.h; sourceTree = "<group>"; };
 		477366A1152C509300EF53B5 /* DailyMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DailyMenu.m; sourceTree = "<group>"; };
-		478716D21537091700492726 /* SDWebImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDWebImage.xcodeproj; path = SDWebImage/SDWebImage.xcodeproj; sourceTree = "<group>"; };
+		4773F59E153C36580011C7E5 /* FullScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullScreenViewController.h; sourceTree = "<group>"; };
+		4773F59F153C36580011C7E5 /* FullScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullScreenViewController.m; sourceTree = "<group>"; };
+		4773F5A0153C36580011C7E5 /* FullScreenViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FullScreenViewController.xib; sourceTree = "<group>"; };
 		478716E21537132300492726 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		478EE74D1484EE3C0094CEC2 /* myHFU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myHFU.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		478EE7511484EE3C0094CEC2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -329,7 +318,6 @@
 				47D4241E153B49BB00764D19 /* libThree20UICommon.a in Frameworks */,
 				47D4241F153B49BB00764D19 /* libThree20UINavigator.a in Frameworks */,
 				478716E31537132300492726 /* MapKit.framework in Frameworks */,
-				478716DC153711F300492726 /* libSDWebImage.a in Frameworks */,
 				47444CAE1534740400533D24 /* libRestKit.a in Frameworks */,
 				47551D4D152DA5CE001A5AD1 /* QuartzCore.framework in Frameworks */,
 				47551D4A152DA5B2001A5AD1 /* libSocketRocket.a in Frameworks */,
@@ -392,14 +380,6 @@
 			name = images;
 			sourceTree = "<group>";
 		};
-		478716D31537091700492726 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				478716DA1537091700492726 /* libSDWebImage.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		478EE7421484EE3B0094CEC2 = {
 			isa = PBXGroup;
 			children = (
@@ -410,7 +390,6 @@
 				47D423E7153B495700764D19 /* Three20UINavigator.xcodeproj */,
 				47D423E8153B495700764D19 /* Three20UI.xcodeproj */,
 				47D423B3153B491B00764D19 /* Three20.xcodeproj */,
-				478716D21537091700492726 /* SDWebImage.xcodeproj */,
 				47551D3A152DA584001A5AD1 /* SocketRocket.xcodeproj */,
 				4739C96E152338E400F611A1 /* RestKit.xcodeproj */,
 				4766D5F3148D87A100803585 /* Icon@2x.png */,
@@ -477,6 +456,9 @@
 				4705D32F148E5C4E0049F385 /* RadioViewController.m */,
 				4766D5EC148D84D400803585 /* images */,
 				478EE7581484EE3C0094CEC2 /* Supporting Files */,
+				4773F59E153C36580011C7E5 /* FullScreenViewController.h */,
+				4773F59F153C36580011C7E5 /* FullScreenViewController.m */,
+				4773F5A0153C36580011C7E5 /* FullScreenViewController.xib */,
 			);
 			path = myHFU;
 			sourceTree = "<group>";
@@ -571,7 +553,6 @@
 			);
 			dependencies = (
 				478716E1153712CD00492726 /* PBXTargetDependency */,
-				478716DF153712C800492726 /* PBXTargetDependency */,
 				47551D4C152DA5B9001A5AD1 /* PBXTargetDependency */,
 			);
 			name = myHFU;
@@ -603,10 +584,6 @@
 				{
 					ProductGroup = 4739C96F152338E400F611A1 /* Products */;
 					ProjectRef = 4739C96E152338E400F611A1 /* RestKit.xcodeproj */;
-				},
-				{
-					ProductGroup = 478716D31537091700492726 /* Products */;
-					ProjectRef = 478716D21537091700492726 /* SDWebImage.xcodeproj */;
 				},
 				{
 					ProductGroup = 47551D3B152DA584001A5AD1 /* Products */;
@@ -703,13 +680,6 @@
 			fileType = wrapper.application;
 			path = TestChat.app;
 			remoteRef = 47551D48152DA584001A5AD1 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		478716DA1537091700492726 /* libSDWebImage.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libSDWebImage.a;
-			remoteRef = 478716D91537091700492726 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		47D423DF153B491B00764D19 /* libThree20.a */ = {
@@ -835,6 +805,7 @@
 				479AE1621531D903003695E8 /* takephoto@2x.png in Resources */,
 				479AE1641531DBF4003695E8 /* bg@2x.png in Resources */,
 				47D42421153B4A1500764D19 /* Three20.bundle in Resources */,
+				4773F5A2153C36580011C7E5 /* FullScreenViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -856,6 +827,7 @@
 				47CCA3B4152C6AD10051F6B9 /* MealViewController.m in Sources */,
 				47551D55152DAA8B001A5AD1 /* JASidePanelController.m in Sources */,
 				47551D64152DAC64001A5AD1 /* LeftTableViewController.m in Sources */,
+				4773F5A1153C36580011C7E5 /* FullScreenViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -866,11 +838,6 @@
 			isa = PBXTargetDependency;
 			name = SocketRocket;
 			targetProxy = 47551D4B152DA5B9001A5AD1 /* PBXContainerItemProxy */;
-		};
-		478716DF153712C800492726 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SDWebImage;
-			targetProxy = 478716DE153712C800492726 /* PBXContainerItemProxy */;
 		};
 		478716E1153712CD00492726 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
