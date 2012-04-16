@@ -27,6 +27,9 @@
     
     self.window.rootViewController = self.viewController;
     
+    [TTURLCache sharedCache].disableImageCache = YES; 
+    [[TTURLCache sharedCache] removeAll:YES];
+    
     self.baseURLString = @"http://78.46.19.228:8010";
     self.baseURLCouchDbString =  @"http://78.46.19.228:5984";
     

@@ -59,6 +59,7 @@
 		47D4241E153B49BB00764D19 /* libThree20UICommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 47D42410153B495700764D19 /* libThree20UICommon.a */; };
 		47D4241F153B49BB00764D19 /* libThree20UINavigator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 47D42416153B495700764D19 /* libThree20UINavigator.a */; };
 		47D42421153B4A1500764D19 /* Three20.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 47D42420153B4A1500764D19 /* Three20.bundle */; };
+		47D7AF37153C666F00D37CBD /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 47D7AF36153C666F00D37CBD /* MBProgressHUD.m */; };
 		47EEA8E1152A2CE4005E109A /* WebSocketTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA8E0152A2CE4005E109A /* WebSocketTest.m */; };
 		47EEA968152A462D005E109A /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 47EEA8F9152A3351005E109A /* libicucore.dylib */; };
 /* End PBXBuildFile section */
@@ -300,6 +301,8 @@
 		47D423E7153B495700764D19 /* Three20UINavigator.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20UINavigator.xcodeproj; path = three20/src/Three20/../Three20UINavigator/Three20UINavigator.xcodeproj; sourceTree = "<group>"; };
 		47D423E8153B495700764D19 /* Three20UI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20UI.xcodeproj; path = three20/src/Three20/../Three20UI/Three20UI.xcodeproj; sourceTree = "<group>"; };
 		47D42420153B4A1500764D19 /* Three20.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Three20.bundle; path = three20/src/Three20.bundle; sourceTree = SOURCE_ROOT; };
+		47D7AF35153C666F00D37CBD /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBProgressHUD.h; path = MBProgressHUD/MBProgressHUD.h; sourceTree = "<group>"; };
+		47D7AF36153C666F00D37CBD /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBProgressHUD.m; path = MBProgressHUD/MBProgressHUD.m; sourceTree = "<group>"; };
 		47EEA8DF152A2CE4005E109A /* WebSocketTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebSocketTest.h; sourceTree = "<group>"; };
 		47EEA8E0152A2CE4005E109A /* WebSocketTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebSocketTest.m; sourceTree = "<group>"; };
 		47EEA8F9152A3351005E109A /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
@@ -394,6 +397,7 @@
 				4739C96E152338E400F611A1 /* RestKit.xcodeproj */,
 				4766D5F3148D87A100803585 /* Icon@2x.png */,
 				4766D5F1148D879B00803585 /* Icon.png */,
+				47D7AF34153C663000D37CBD /* MBProgressHud */,
 				478EE7571484EE3C0094CEC2 /* myHFU */,
 				478EE7501484EE3C0094CEC2 /* Frameworks */,
 				478EE74E1484EE3C0094CEC2 /* Products */,
@@ -454,11 +458,11 @@
 				47EEA8E0152A2CE4005E109A /* WebSocketTest.m */,
 				4705D32E148E5C4E0049F385 /* RadioViewController.h */,
 				4705D32F148E5C4E0049F385 /* RadioViewController.m */,
-				4766D5EC148D84D400803585 /* images */,
-				478EE7581484EE3C0094CEC2 /* Supporting Files */,
 				4773F59E153C36580011C7E5 /* FullScreenViewController.h */,
 				4773F59F153C36580011C7E5 /* FullScreenViewController.m */,
 				4773F5A0153C36580011C7E5 /* FullScreenViewController.xib */,
+				4766D5EC148D84D400803585 /* images */,
+				478EE7581484EE3C0094CEC2 /* Supporting Files */,
 			);
 			path = myHFU;
 			sourceTree = "<group>";
@@ -536,6 +540,15 @@
 				47D4240C153B495700764D19 /* UIUnitTests.octest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		47D7AF34153C663000D37CBD /* MBProgressHud */ = {
+			isa = PBXGroup;
+			children = (
+				47D7AF35153C666F00D37CBD /* MBProgressHUD.h */,
+				47D7AF36153C666F00D37CBD /* MBProgressHUD.m */,
+			);
+			name = MBProgressHud;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -828,6 +841,7 @@
 				47551D55152DAA8B001A5AD1 /* JASidePanelController.m in Sources */,
 				47551D64152DAC64001A5AD1 /* LeftTableViewController.m in Sources */,
 				4773F5A1153C36580011C7E5 /* FullScreenViewController.m in Sources */,
+				47D7AF37153C666F00D37CBD /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

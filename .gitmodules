@@ -7,3 +7,6 @@
 [submodule "three20"]
 	path = three20
 	url = git://github.com/facebook/three20.git
+[submodule "MBProgressHUD"]
+	path = MBProgressHUD
+	url = git://github.com/matej/MBProgressHUD.git

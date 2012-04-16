@@ -18,7 +18,7 @@
 @synthesize webView_MenuB = _webView_MenuB;
 
 
-@synthesize appDelegate = _appDelegate, buttonType = _buttonType, uploadAlert = _uploadAlert, meals = _meals;
+@synthesize appDelegate = _appDelegate, buttonType = _buttonType, meals = _meals;
 
 - (id)init
 {
@@ -53,41 +53,45 @@
     self.webView_MenuB.scrollView.bounces = NO;
     self.webView_MenuB.backgroundColor = [UIColor clearColor];
     
+    /*progressHud = [[MBProgressHUD alloc] initWithView:self.view];
+    progressHud.labelText = @"Laden...";
+    [self.view addSubview:progressHud];
     
+    [progressHud show:YES];*/
+    //[progressHud showWhileExecuting:@selector(didLoadImage) onTarget:self withObject:nil animated:YES];
 }
 
 - (void)dataReceivedNotification:(NSNotification*)notification
-{
-    DailyMenu *dailyMeal;
-    int dayInArray;
-    int today;
-    //self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
- 
-    if ([notification.name isEqualToString:@"mealsLoaded"])
-    {
-        for (int i = 0; i < [self.appDelegate.loadedMeals count]; i++) 
+{        
+        //Load Data
+        int dayInArray;
+        int today;
+        //self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        
+        if ([notification.name isEqualToString:@"mealsLoaded"])
         {
-            dayInArray = [[NSCalendar currentCalendar] ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:[[self.appDelegate.loadedMeals objectAtIndex:i] date]];
-            today = [[NSCalendar currentCalendar] ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:[self.appDelegate getCurrentDateAsDate]];
-            
-            if (dayInArray == today)
+            for (int i = 0; i < [self.appDelegate.loadedMeals count]; i++) 
             {
-                self.meals = [self.appDelegate.loadedMeals objectAtIndex:i];
-                dailyMeal = [self.appDelegate.loadedMeals objectAtIndex:i];
-                break;
+                dayInArray = [[NSCalendar currentCalendar] ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:[[self.appDelegate.loadedMeals objectAtIndex:i] date]];
+                today = [[NSCalendar currentCalendar] ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:[self.appDelegate getCurrentDateAsDate]];
+                
+                if (dayInArray == today)
+                {
+                    self.meals = [self.appDelegate.loadedMeals objectAtIndex:i];
+                    break;
+                }
             }
         }
-    }
-    else if ([notification.name isEqualToString:@"dayChanged"])
-    {
-        NSNumber *i = [notification.userInfo valueForKey:@"index"];
-        dailyMeal = [self.appDelegate.loadedMeals objectAtIndex:[i unsignedIntValue]];
-    }
-    
-    [self checkButtonState:dailyMeal];
-    [self setWebViews:dailyMeal];
-    [self setButtons:dailyMeal];
-    
+        else if ([notification.name isEqualToString:@"dayChanged"])
+        {
+            NSNumber *i = [notification.userInfo valueForKey:@"index"];
+            self.meals = [self.appDelegate.loadedMeals objectAtIndex:[i unsignedIntValue]];
+        }
+        
+        [self checkButtonState:self.meals];
+        [self setButtons:self.meals];
+        [self setWebViews:self.meals];
+        //End Load Data
 }
 
 - (void) setWebViews:(DailyMenu*)dailyMeal
@@ -106,20 +110,38 @@
 {
     if (![dailyMeal.menu_a.picture isEqualToString:@""])
     {
-        TTPhotoView *photoView =[[TTPhotoView alloc] initWithFrame:CGRectMake(0, 0, 101, 101)];
-        photoView.urlPath = [[[[NSString stringWithString:self.appDelegate.baseURLCouchDbString] stringByAppendingString:@"/hfuapp/"] stringByAppendingString:[self.appDelegate getStringDateFromDate:dailyMeal.date]] stringByAppendingString:@"/menu_a"];
+        photoViewA = [[TTImageView alloc] initWithFrame:CGRectMake(0, 0, 101, 101)];
+        photoViewA.urlPath = [[[[NSString stringWithString:self.appDelegate.baseURLCouchDbString]stringByAppendingString:@"/hfuapp/"] stringByAppendingString:[self.appDelegate getStringDateFromDate:dailyMeal.date]] stringByAppendingString:@"/menu_a"];
+        photoViewA.delegate = self;
         
-        [photoView loadImage];
-        [self.bt_MenuA setImage:photoView.image forState:UIControlStateNormal];
+        [MBProgressHUD showHUDAddedTo:photoViewA animated:YES];
+        [self.bt_MenuA addSubview:photoViewA];
+        [self.bt_MenuA setImage:photoViewA.image forState:UIControlStateNormal];
+        photoViewA.userInteractionEnabled = NO;
+        photoViewA.exclusiveTouch = NO;
+    }
+    else 
+    {
+        [photoViewA removeFromSuperview];
+        [self.bt_MenuA setImage:nil forState:UIControlStateNormal];
     }
     
     if (![dailyMeal.menu_b.picture isEqualToString:@""]) 
     {
-        TTPhotoView *photoView =[[TTPhotoView alloc] initWithFrame:CGRectMake(0, 0, 101, 101)];
-        photoView.urlPath = [[[[NSString stringWithString:self.appDelegate.baseURLCouchDbString] stringByAppendingString:@"/hfuapp/"] stringByAppendingString:[self.appDelegate getStringDateFromDate:dailyMeal.date]] stringByAppendingString:@"/menu_b"];
-        
-        [photoView loadImage];
-        [self.bt_MenuB setImage:photoView.image forState:UIControlStateNormal];
+        photoViewB = [[TTImageView alloc] initWithFrame:CGRectMake(0, 0, 101, 101)];
+        photoViewB.urlPath = [[[[NSString stringWithString:self.appDelegate.baseURLCouchDbString]stringByAppendingString:@"/hfuapp/"] stringByAppendingString:[self.appDelegate getStringDateFromDate:dailyMeal.date]] stringByAppendingString:@"/menu_b"];
+        photoViewB.delegate = self;
+
+        [MBProgressHUD showHUDAddedTo:photoViewB animated:YES];
+        [self.bt_MenuB addSubview:photoViewB];
+        [self.bt_MenuB setImage:photoViewB.image forState:UIControlStateNormal];
+        photoViewB.userInteractionEnabled = NO;
+        photoViewB.exclusiveTouch = NO;
+    }
+    else 
+    {
+        [photoViewB removeFromSuperview];
+        [self.bt_MenuB setImage:nil forState:UIControlStateNormal];
     }
     
     [self.seg_MenuA setTitle:[[NSString stringWithString:@"▼ "] stringByAppendingString:[dailyMeal.menu_a.downVotes stringValue]] forSegmentAtIndex:0];
@@ -159,6 +181,7 @@
  * Called when the image begins loading asynchronously.
  */
 - (void)imageViewDidStartLoad:(TTImageView*)imageView {
+    
     NSLog(@"loading image...");
 }
 
@@ -167,8 +190,7 @@
  */
 - (void)imageView:(TTImageView*)imageView didLoadImage:(UIImage*)image {
     NSLog(@"loaded image!");
-
-    //[self.bt_MenuA setBackgroundImage:image forState:UIControlStateNormal];
+    [MBProgressHUD hideAllHUDsForView:imageView animated:YES];
 }
 
 /**
@@ -188,14 +210,21 @@
     }
     else 
     {
-        [self presentFullScreenPicture];
+        [self presentFullScreenPicture:self.buttonType];
     }
-    
 }
 
 - (IBAction)takePictureB:(id)sender {
     self.buttonType = @"menu_b";
-    [self takePictureOfMeal];
+    
+    if ([self.bt_MenuB imageForState:UIControlStateNormal] == nil)
+    {
+        [self takePictureOfMeal];
+    }
+    else 
+    {
+        [self presentFullScreenPicture:self.buttonType];
+    }
 }
 
 - (IBAction)seg_MenuAVote:(id)sender {
@@ -204,12 +233,9 @@
 - (IBAction)seg_MenuBVote:(id)sender {
 }
 
-- (IBAction)seg_MenuA:(id)sender {
-}
-
-- (void) presentFullScreenPicture
+- (void) presentFullScreenPicture:(NSString*) buttonType
 {
-    NSString* path = [[[[NSString stringWithString:self.appDelegate.baseURLCouchDbString] stringByAppendingString:@"/hfuapp/"] stringByAppendingString:[self.appDelegate getStringDateFromDate:self.meals.date]] stringByAppendingString:@"/menu_a"];
+    NSString* path = [[[[[NSString stringWithString:self.appDelegate.baseURLCouchDbString] stringByAppendingString:@"/hfuapp/"] stringByAppendingString:[self.appDelegate getStringDateFromDate:self.meals.date]] stringByAppendingString:@"/"] stringByAppendingString:buttonType];
     
     FullScreenViewController *fullScreenViewController = [[FullScreenViewController alloc] initWithPicturePath:path];
     [self presentModalViewController:fullScreenViewController animated:YES];
@@ -243,12 +269,6 @@
     image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
 
-    
-    // Save image
-    //UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
-    
-    // Create paths to output images
-    //NSString  *pngPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/Test.png"];
     NSString *pathString = @"Documents";
     pathString = [[[pathString stringByAppendingString:self.appDelegate.getCurrentDate] stringByAppendingString:self.buttonType] stringByAppendingString:@".jpg"];
     NSString  *jpgPath = [NSHomeDirectory() stringByAppendingPathComponent:pathString];
@@ -280,7 +300,6 @@
     [picker dismissModalViewControllerAnimated:YES];
 }
 
-
 - (void) changeButtonImage:(NSString *)button
 {
     NSString *pathString = @"Documents";
@@ -304,25 +323,7 @@
 {
     RKConnectionHandler *handler = [[RKConnectionHandler alloc] init];
     
-    self.uploadAlert = [[UIAlertView alloc] initWithTitle:@"Upload in progress, please wait" message:nil delegate:self
-                       cancelButtonTitle:nil otherButtonTitles:nil];
-    
-    
-    UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] 
-                                             initWithActivityIndicatorStyle: 
-                                             UIActivityIndicatorViewStyleWhiteLarge];
-    activityView.center = CGPointMake(self.uploadAlert.bounds.size.width / 2.0f,
-                                      self.uploadAlert.bounds.size.height - 40.0f);
-    [activityView startAnimating];
-    [self.uploadAlert addSubview:activityView];
-    [self.uploadAlert show];
-    
     [handler uploadImage:path forMenu:menuType setDelegate:self];
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    
 }
 
 - (void)requestDidStartLoad:(RKRequest *)request {
@@ -338,16 +339,7 @@
 }
 
 - (void)request:(RKRequest *)request didLoadResponse:(RKResponse *)response {
-    /*_uploadButton.enabled = YES;
-     [_activityIndicatorView stopAnimating];
-     
-     if ([response isOK]) {
-     _statusLabel.text = @"Upload Successful!";
-     _statusLabel.textColor = [UIColor greenColor];
-     } else {
-     _statusLabel.text = [NSString stringWithFormat:@"Upload failed with status code: %d", [response statusCode]];
-     _statusLabel.textColor = [UIColor redColor];
-     }*/
+    
 }
 
 - (void)request:(RKRequest *)request didFailLoadWithError:(NSError *)error {

@@ -12,17 +12,20 @@
 #import "UIImageView+WebCache.h"
 #import <Three20/Three20.h>
 #import "FullScreenViewController.h"
+#import "MBProgressHUD.h"
 
 @class AppDelegate;
 
-@interface MealViewController : UIViewController <TTImageViewDelegate, RKRequestDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface MealViewController : UIViewController <RKRequestDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, TTImageViewDelegate>
 {
-    
+    TTImageView *photoViewA;
+    TTImageView *photoViewB;
+    MBProgressHUD *progressHud;
 }
+
 @property (assign, nonatomic) DailyMenu *meals;
 @property (assign, nonatomic) AppDelegate *appDelegate;
 @property (assign, nonatomic) NSString *buttonType;
-@property (weak, nonatomic)UIAlertView *uploadAlert;
 
 - (IBAction)takePictureA:(id)sender;
 - (IBAction)takePictureB:(id)sender;
@@ -42,6 +45,6 @@
 - (void) setButtons:(DailyMenu*)dailyMeal;
 - (void) setWebViews:(DailyMenu*)dailyMeal;
 - (void) checkButtonState:(DailyMenu*)dailyMeal;
-
+- (void) presentFullScreenPicture:(NSString*) buttonType;
 
 @end
