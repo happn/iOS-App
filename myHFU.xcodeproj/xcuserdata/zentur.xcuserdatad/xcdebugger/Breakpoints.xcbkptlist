@@ -124,25 +124,12 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "myHFU/RKConnectionHandler.m"
-         timestampString = "355136239.303489"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "19"
-         endingLineNumber = "19"
-         landmarkName = "-init"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
          filePath = "myHFU/MealViewController.m"
-         timestampString = "355938115.332991"
+         timestampString = "356257653.446677"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "254"
-         endingLineNumber = "254"
+         startingLineNumber = "276"
+         endingLineNumber = "276"
          landmarkName = "-imagePickerController:didFinishPickingMediaWithInfo:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -151,38 +138,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "myHFU/MealViewController.m"
-         timestampString = "355938115.332991"
+         timestampString = "356257653.446677"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "266"
-         endingLineNumber = "266"
-         landmarkName = "-changeButtonImage:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "myHFU/AppDelegate.m"
-         timestampString = "355931408.068592"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "34"
-         endingLineNumber = "34"
-         landmarkName = "-application:didFinishLaunchingWithOptions:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "myHFU/RKConnectionHandler.m"
-         timestampString = "355920507.262024"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "66"
-         endingLineNumber = "66"
-         landmarkName = "-uploadImage:forMenu:setDelegate:"
+         startingLineNumber = "288"
+         endingLineNumber = "288"
+         landmarkName = "-imagePickerController:didFinishPickingMediaWithInfo:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -196,19 +157,6 @@
          startingLineNumber = "121"
          endingLineNumber = "121"
          landmarkName = "-getCurrentDate"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "myHFU/RKConnectionHandler.m"
-         timestampString = "355920507.262024"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "73"
-         endingLineNumber = "73"
-         landmarkName = "-uploadImage:forMenu:setDelegate:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -267,32 +215,6 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "myHFU/MealViewController.m"
-         timestampString = "355927136.963141"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "85"
-         endingLineNumber = "85"
-         landmarkName = "-dataReceivedNotification:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "myHFU/MealViewController.m"
-         timestampString = "355927136.963141"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "84"
-         endingLineNumber = "84"
-         landmarkName = "-dataReceivedNotification:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
          filePath = "myHFU/LeftTableViewController.m"
          timestampString = "355862549.622829"
          startingColumnNumber = "9223372036854775807"
@@ -320,12 +242,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "myHFU/MealViewController.m"
-         timestampString = "355938115.332991"
+         timestampString = "356257653.446677"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "305"
-         endingLineNumber = "305"
-         landmarkName = "-requestDidStartLoad:"
+         startingLineNumber = "327"
+         endingLineNumber = "327"
+         landmarkName = "-uploadPicture:pathForMenuPicture:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -333,12 +255,51 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "myHFU/MealViewController.m"
-         timestampString = "355930967.314982"
+         timestampString = "356257653.446677"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "102"
-         endingLineNumber = "102"
-         landmarkName = "-dataReceivedNotification:"
+         startingLineNumber = "240"
+         endingLineNumber = "240"
+         landmarkName = "-takePictureOfMeal"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "myHFU/MealViewController.m"
+         timestampString = "356257653.446677"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "166"
+         endingLineNumber = "166"
+         landmarkName = "@implementation MealViewController"
+         landmarkType = "3">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "myHFU/MealViewController.m"
+         timestampString = "356257653.446677"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "181"
+         endingLineNumber = "181"
+         landmarkName = "-webImageManager:didFinishWithImage:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "myHFU/MealViewController.m"
+         timestampString = "356257653.446677"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "341"
+         endingLineNumber = "341"
+         landmarkName = "-uploadPicture:pathForMenuPicture:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -346,38 +307,38 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "myHFU/MealViewController.m"
-         timestampString = "355938115.332991"
+         timestampString = "356256440.112547"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "218"
-         endingLineNumber = "218"
-         landmarkName = "-imagePickerController:didFinishPickingMediaWithInfo:"
+         startingLineNumber = "109"
+         endingLineNumber = "109"
+         landmarkName = "-setButtons:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "No"
+         shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "myHFU/MealViewController.m"
-         timestampString = "355937893.11305"
+         timestampString = "356257653.446677"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "126"
-         endingLineNumber = "126"
-         landmarkName = "-webImageManager:didFinishWithImage:"
+         startingLineNumber = "207"
+         endingLineNumber = "207"
+         landmarkName = "-imageView:didLoadImage:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "No"
+         shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "myHFU/MealViewController.m"
-         timestampString = "355938201.567101"
+         timestampString = "356257653.446677"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "141"
-         endingLineNumber = "141"
-         landmarkName = "-webImageManager:didFinishWithImage:"
+         startingLineNumber = "200"
+         endingLineNumber = "200"
+         landmarkName = "-imageViewDidStartLoad:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

@@ -26,8 +26,6 @@
         [self.dailyMealMapping mapKeyPath:@"date" toAttribute:@"date"];
         [self.dailyMealMapping mapKeyPath:@"menu_a" toRelationship:@"menu_a" withMapping:self.mealMapping];
         [self.dailyMealMapping mapKeyPath:@"menu_b" toRelationship:@"menu_b" withMapping:self.mealMapping];
-        
-        
     }
 	
 	return self;

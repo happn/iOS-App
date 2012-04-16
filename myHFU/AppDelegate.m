@@ -14,7 +14,7 @@
 
 @implementation AppDelegate
 
-@synthesize window = _window, allMeals = _allMeals, moviePlayer = _moviePlayer, playerIsPlaying = _playerIsPlaying, loadedMeals = _loadedMeals, baseURLString = _baseURLString;
+@synthesize window = _window, allMeals = _allMeals, moviePlayer = _moviePlayer, playerIsPlaying = _playerIsPlaying, loadedMeals = _loadedMeals, baseURLString = _baseURLString, baseURLCouchDbString = _baseURLCouchDbString;
 @synthesize viewController = _viewController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -124,9 +124,32 @@
     
     
     NSDate *currentDate = [NSDate date]; // aktuelles Datum und die Uhrzeit
+    if ([self checkIfIsSunday:currentDate]) //Wenn es Sonntag is soll er gleich die Nächste Woche laden
+    {
+        NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
+        dayComponent.day = 1;
+        
+        NSCalendar *theCalendar = [NSCalendar currentCalendar];
+        currentDate = [theCalendar dateByAddingComponents:dayComponent toDate:currentDate options:0];
+    }
     NSString *dateString = [dateFormatter stringFromDate:currentDate];
     
     return dateString;
+}
+
+- (NSDate*)getCurrentDateAsDate
+{
+    NSDate *currentDate = [NSDate date]; // aktuelles Datum und die Uhrzeit
+    if ([self checkIfIsSunday:currentDate]) //Wenn es Sonntag is soll er gleich die Nächste Woche laden
+    {
+        NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
+        dayComponent.day = 1;
+        
+        NSCalendar *theCalendar = [NSCalendar currentCalendar];
+        currentDate = [theCalendar dateByAddingComponents:dayComponent toDate:currentDate options:0];
+    }
+    
+    return currentDate;
 }
 
 - (NSString*)getCurrentDateWithoutSlash
@@ -137,6 +160,14 @@
     
     
     NSDate *currentDate = [NSDate date]; // aktuelles Datum und die Uhrzeit
+    if ([self checkIfIsSunday:currentDate]) //Wenn es Sonntag is soll er gleich die Nächste Woche laden
+    {
+        NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
+        dayComponent.day = 1;
+        
+        NSCalendar *theCalendar = [NSCalendar currentCalendar];
+        currentDate = [theCalendar dateByAddingComponents:dayComponent toDate:currentDate options:0];
+    }
     NSString *dateString = [dateFormatter stringFromDate:currentDate];
     
     return dateString;
@@ -148,9 +179,32 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"ddMMyyyy"];
     
+    if ([self checkIfIsSunday:date]) //Wenn es Sonntag is soll er gleich die Nächste Woche laden
+    {
+        NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
+        dayComponent.day = 1;
+        
+        NSCalendar *theCalendar = [NSCalendar currentCalendar];
+        date = [theCalendar dateByAddingComponents:dayComponent toDate:date options:0];
+    }
     NSString *dateString = [dateFormatter stringFromDate:date];
     
     return dateString;
+}
+
+- (BOOL) checkIfIsSunday:(NSDate*)date
+{
+    int day = [[[NSCalendar currentCalendar] components:NSWeekdayCalendarUnit
+                                               fromDate:date] weekday];
+    
+    if (day == 1) 
+    { 
+        return YES;
+    }  
+    else 
+    {
+        return NO;
+    }
 }
 
 							

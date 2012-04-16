@@ -34,7 +34,7 @@
                                                      name:@"dayChanged"
                                                    object:nil];
         
-         
+        self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     }
     return self;
 }
@@ -53,38 +53,44 @@
     self.webView_MenuB.scrollView.bounces = NO;
     self.webView_MenuB.backgroundColor = [UIColor clearColor];
     
-    //self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    //([self.appDelegate addObserver:self forKeyPath:@"loadedMeals" options:NSKeyValueChangeSetting context:nil];
+    
 }
 
 - (void)dataReceivedNotification:(NSNotification*)notification
 {
     DailyMenu *dailyMeal;
-    int day1;
-    int day2;
-    self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    int dayInArray;
+    int today;
+    //self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
  
     if ([notification.name isEqualToString:@"mealsLoaded"])
     {
-        for (int i = 0; i < [self.appDelegate.loadedMeals count]; i++) {
-        
-            day1 = [[NSCalendar currentCalendar] ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:[[self.appDelegate.    loadedMeals objectAtIndex:i] date]];
-            day2 = [[NSCalendar currentCalendar] ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:[NSDate date]];
-        
-            if (day1 == day2)
+        for (int i = 0; i < [self.appDelegate.loadedMeals count]; i++) 
+        {
+            dayInArray = [[NSCalendar currentCalendar] ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:[[self.appDelegate.loadedMeals objectAtIndex:i] date]];
+            today = [[NSCalendar currentCalendar] ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:[self.appDelegate getCurrentDateAsDate]];
+            
+            if (dayInArray == today)
             {
                 dailyMeal = [self.appDelegate.loadedMeals objectAtIndex:i];
                 break;
             }
         }
     }
-    
-    if ([notification.name isEqualToString:@"dayChanged"])
+    else if ([notification.name isEqualToString:@"dayChanged"])
     {
         NSNumber *i = [notification.userInfo valueForKey:@"index"];
         dailyMeal = [self.appDelegate.loadedMeals objectAtIndex:[i unsignedIntValue]];
     }
     
+    [self checkButtonState:dailyMeal];
+    [self setWebViews:dailyMeal];
+    [self setButtons:dailyMeal];
+    
+}
+
+- (void) setWebViews:(DailyMenu*)dailyMeal
+{
     NSString *htmlStringTop = @"<html><title></title><body style=""background-color:transparent;"">";
     NSString *htmlStringBottom = @"</body></html>";
     
@@ -93,13 +99,27 @@
     
     [self.webView_MenuA loadHTMLString:htmlSourceStringA baseURL:[NSURL URLWithString:@""]];
     [self.webView_MenuB loadHTMLString:htmlSourceStringB baseURL:[NSURL URLWithString:@""]];
-    
+}
+
+- (void) setButtons:(DailyMenu*)dailyMeal
+{
     if (![dailyMeal.menu_a.picture isEqualToString:@""])
     {
-        SDWebImageManager *manager = [SDWebImageManager sharedManager];
-        NSString *pathString = [[[[NSString stringWithString:self.appDelegate.baseURLCouchDbString] stringByAppendingString:@"/hfuapp/"] stringByAppendingString:[self.appDelegate getStringDateFromDate:dailyMeal.date]] stringByAppendingString:@"/menu_a"];
+        TTImageView *imageView = [[TTImageView alloc] initWithFrame:CGRectMake(0, 0, 101, 101)];
+        imageView.urlPath = [[[[NSString stringWithString:self.appDelegate.baseURLCouchDbString] stringByAppendingString:@"/hfuapp/"] stringByAppendingString:[self.appDelegate getStringDateFromDate:dailyMeal.date]] stringByAppendingString:@"/menu_a"];
+        imageView.backgroundColor = [UIColor clearColor]; 
+        imageView.defaultImage = nil;
+        imageView.delegate = self;
         
-        [manager downloadWithURL:[NSURL URLWithString:pathString] delegate:self];
+        [self.bt_MenuA setImage:imageView.image forState:UIControlStateNormal];
+        //[self.bt_MenuA addSubview:imageView];
+        
+        //[imageView reload];
+        
+        /*SDWebImageManager *manager = [SDWebImageManager sharedManager];
+         NSString *pathString = [[[[NSString stringWithString:self.appDelegate.baseURLCouchDbString] stringByAppendingString:@"/hfuapp/"] stringByAppendingString:[self.appDelegate getStringDateFromDate:dailyMeal.date]] stringByAppendingString:@"/menu_a"];
+         
+         [manager downloadWithURL:[NSURL URLWithString:pathString] delegate:self];*/
     }
     
     if (![dailyMeal.menu_b.picture isEqualToString:@""]) 
@@ -116,7 +136,32 @@
     
     [self.seg_MenuB setTitle:[[NSString stringWithString:@"▼ "] stringByAppendingString:[dailyMeal.menu_b.downVotes stringValue]] forSegmentAtIndex:0];
     [self.seg_MenuB setTitle:[[dailyMeal.menu_b.upVotes stringValue] stringByAppendingString:@" ▲"] forSegmentAtIndex:1];
-    //[self.view setNeedsDisplay]; 
+}
+
+- (void) checkButtonState:(DailyMenu*)dailyMeal
+{
+    int dayInMeal;
+    int today;
+    
+    dayInMeal = [[NSCalendar currentCalendar] ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:dailyMeal.date];
+    today = [[NSCalendar currentCalendar] ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:[NSDate date]];
+    
+    if (dayInMeal != today)
+    {
+        [self.bt_MenuA setEnabled:NO];
+        [self.bt_MenuB setEnabled:NO];
+        
+        [self.seg_MenuA setEnabled:NO];
+        [self.seg_MenuB setEnabled:NO];
+    }
+    else 
+    {
+        [self.bt_MenuA setEnabled:YES];
+        [self.bt_MenuB setEnabled:YES];
+        
+        [self.seg_MenuA setEnabled:YES];
+        [self.seg_MenuB setEnabled:YES];
+    }
 }
 
 - (void)webImageManager:(SDWebImageManager *)imageManager didFinishWithImage:(UIImage *)image
@@ -146,29 +191,31 @@
             }
         }
     }
-    
-    
-    
-    
 }
 
-/*- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-    return self;
-}*/
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
+/**
+ * Called when the image begins loading asynchronously.
+ */
+- (void)imageViewDidStartLoad:(TTImageView*)imageView {
+    NSLog(@"loading image...");
 }
-*/
+
+/**
+ * Called when the image finishes loading asynchronously.
+ */
+- (void)imageView:(TTImageView*)imageView didLoadImage:(UIImage*)image {
+    NSLog(@"loaded image!");
+
+    //[self.bt_MenuA setBackgroundImage:image forState:UIControlStateNormal];
+}
+
+/**
+ * Called when the image failed to load asynchronously.
+ * If error is nil then the request was cancelled.
+ */
+- (void)imageView:(TTImageView*)imageView didFailLoadWithError:(NSError*)error {
+    NSLog(@"error loading image - %@", error);
+}
 
 - (IBAction)takePictureA:(id)sender {
     self.buttonType = @"menu_a";

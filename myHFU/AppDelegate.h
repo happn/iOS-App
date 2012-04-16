@@ -30,7 +30,9 @@
 @property (strong, nonatomic) JASidePanelController *viewController;
 
 - (NSString*)getCurrentDate;
+- (NSDate*)getCurrentDateAsDate;
 - (NSString*)getCurrentDateWithoutSlash;
 - (NSString*)getStringDateFromDate:(NSDate*)date;
+- (BOOL) checkIfIsSunday:(NSDate*)date;
 
 @end

@@ -10,10 +10,11 @@
 #import "DailyMenu.h"
 #import "AppDelegate.h"
 #import "UIImageView+WebCache.h"
+#import <Three20/Three20.h>
 
 @class AppDelegate;
 
-@interface MealViewController : UIViewController <SDWebImageManagerDelegate, RKRequestDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface MealViewController : UIViewController <SDWebImageManagerDelegate, TTImageViewDelegate, RKRequestDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 {
     
 }
@@ -36,5 +37,9 @@
 - (void) changeButtonImage:(NSString *)button;
 - (void) uploadPicture:(NSString*) menuType pathForMenuPicture:(NSString*) path;
 - (void) takePictureOfMeal;
+- (void) setButtons:(DailyMenu*)dailyMeal;
+- (void) setWebViews:(DailyMenu*)dailyMeal;
+- (void) checkButtonState:(DailyMenu*)dailyMeal;
+
 
 @end

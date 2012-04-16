@@ -2,13 +2,13 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1280</int>
-		<string key="IBDocument.SystemVersion">12A154q</string>
-		<string key="IBDocument.InterfaceBuilderVersion">2427</string>
-		<string key="IBDocument.AppKitVersion">1162.3</string>
-		<string key="IBDocument.HIToolboxVersion">604.00</string>
+		<string key="IBDocument.SystemVersion">11D50</string>
+		<string key="IBDocument.InterfaceBuilderVersion">2182</string>
+		<string key="IBDocument.AppKitVersion">1138.32</string>
+		<string key="IBDocument.HIToolboxVersion">568.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-			<string key="NS.object.0">1420</string>
+			<string key="NS.object.0">1181</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>IBUIView</string>
@@ -45,6 +45,7 @@
 							<int key="NSvFlags">292</int>
 							<string key="NSFrame">{{12, 15}, {101, 101}}</string>
 							<reference key="NSSuperview" ref="1001608202"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="434439047"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="IBUIOpaque">NO</bool>
@@ -82,6 +83,7 @@
 							<int key="NSvFlags">292</int>
 							<string key="NSFrame">{{12, 223}, {101, 101}}</string>
 							<reference key="NSSuperview" ref="1001608202"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="404867606"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="IBUIOpaque">NO</bool>
@@ -103,6 +105,7 @@
 							<int key="NSvFlags">274</int>
 							<string key="NSFrameSize">{320, 416}</string>
 							<reference key="NSSuperview" ref="1001608202"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="328752427"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<int key="IBUIContentMode">2</int>
@@ -118,6 +121,7 @@
 							<int key="NSvFlags">292</int>
 							<string key="NSFrame">{{151, 160}, {149, 30}}</string>
 							<reference key="NSSuperview" ref="1001608202"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="651960260"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="IBUIOpaque">NO</bool>
@@ -154,6 +158,7 @@
 							<int key="NSvFlags">292</int>
 							<string key="NSFrame">{{151, 367}, {149, 30}}</string>
 							<reference key="NSSuperview" ref="1001608202"/>
+							<reference key="NSWindow"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="IBUIOpaque">NO</bool>
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -189,6 +194,7 @@
 							<int key="NSvFlags">292</int>
 							<string key="NSFrame">{{121, 0}, {199, 135}}</string>
 							<reference key="NSSuperview" ref="1001608202"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="969920213"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<reference key="IBUIBackgroundColor" ref="617879788"/>
@@ -202,6 +208,7 @@
 							<int key="NSvFlags">292</int>
 							<string key="NSFrame">{{121, 197}, {204, 146}}</string>
 							<reference key="NSSuperview" ref="1001608202"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="555780459"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<reference key="IBUIBackgroundColor" ref="617879788"/>
@@ -213,6 +220,7 @@
 					</array>
 					<string key="NSFrame">{{0, 64}, {320, 416}}</string>
 					<reference key="NSSuperview"/>
+					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="1026293756"/>
 					<string key="NSReuseIdentifierKey">_NS:9</string>
 					<object class="NSColor" key="IBUIBackgroundColor">
@@ -435,7 +443,76 @@
 			<nil key="sourceID"/>
 			<int key="maxID">34</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">MealViewController</string>
+					<string key="superclassName">UIViewController</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="seg_MenuAVote:">id</string>
+						<string key="seg_MenuBVote:">id</string>
+						<string key="takePictureA:">id</string>
+						<string key="takePictureB:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="seg_MenuAVote:">
+							<string key="name">seg_MenuAVote:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="seg_MenuBVote:">
+							<string key="name">seg_MenuBVote:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="takePictureA:">
+							<string key="name">takePictureA:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="takePictureB:">
+							<string key="name">takePictureB:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="bt_MenuA">UIButton</string>
+						<string key="bt_MenuB">UIButton</string>
+						<string key="seg_MenuA">UISegmentedControl</string>
+						<string key="seg_MenuB">UISegmentedControl</string>
+						<string key="webView_MenuA">UIWebView</string>
+						<string key="webView_MenuB">UIWebView</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="bt_MenuA">
+							<string key="name">bt_MenuA</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="bt_MenuB">
+							<string key="name">bt_MenuB</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="seg_MenuA">
+							<string key="name">seg_MenuA</string>
+							<string key="candidateClassName">UISegmentedControl</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="seg_MenuB">
+							<string key="name">seg_MenuB</string>
+							<string key="candidateClassName">UISegmentedControl</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="webView_MenuA">
+							<string key="name">webView_MenuA</string>
+							<string key="candidateClassName">UIWebView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="webView_MenuB">
+							<string key="name">webView_MenuB</string>
+							<string key="candidateClassName">UIWebView</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/MealViewController.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
@@ -444,6 +521,6 @@
 			<string key="bg.png">{320, 416}</string>
 			<string key="takephoto.png">{202, 201}</string>
 		</dictionary>
-		<string key="IBCocoaTouchPluginVersion">1420</string>
+		<string key="IBCocoaTouchPluginVersion">1181</string>
 	</data>
 </archive>
