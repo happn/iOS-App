@@ -14,13 +14,13 @@
 
 @implementation FullScreenViewController
 
+@synthesize pathString = _pathString;
+
 - (id)initWithPicturePath:(NSString*)path
 {
     self = [super init];
     if (self) {
-        imageView = [[TTImageView alloc] initWithFrame:CGRectMake(0, 40, 320, 460)];
-        imageView.urlPath = path;
-        [self.view addSubview:imageView];
+        self.pathString = path;
     }
     return self;
 }
@@ -34,9 +34,44 @@
     return self;
 }
 
+/**
+ * Called when the image begins loading asynchronously.
+ */
+- (void)imageViewDidStartLoad:(TTImageView*)imageView {
+    
+    NSLog(@"loading image...");
+}
+
+/**
+ * Called when the image finishes loading asynchronously.
+ */
+- (void)imageView:(TTImageView*)imageView didLoadImage:(UIImage*)image {
+    NSLog(@"loaded image!");
+    [MBProgressHUD hideHUDForView:imageViewFullScreen animated:YES];//[MBProgressHUD hideAllHUDsForView:imageView animated:YES];
+}
+
+/**
+ * Called when the image failed to load asynchronously.
+ * If error is nil then the request was cancelled.
+ */
+- (void)imageView:(TTImageView*)imageView didFailLoadWithError:(NSError*)error {
+    NSLog(@"error loading image - %@", error);
+}
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    
+    
+    imageViewFullScreen = [[TTImageView alloc] initWithFrame:CGRectMake(0, 40, 320, 460)];
+    imageViewFullScreen.delegate = self;
+    imageViewFullScreen.urlPath = self.pathString;
+    
+    [MBProgressHUD showHUDAddedTo:imageViewFullScreen animated:YES];
+    [self.view addSubview:imageViewFullScreen];
+
     // Do any additional setup after loading the view from its nib.
 }
 

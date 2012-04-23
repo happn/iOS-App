@@ -52,13 +52,6 @@
     self.webView_MenuB.scrollView.scrollEnabled = NO; 
     self.webView_MenuB.scrollView.bounces = NO;
     self.webView_MenuB.backgroundColor = [UIColor clearColor];
-    
-    /*progressHud = [[MBProgressHUD alloc] initWithView:self.view];
-    progressHud.labelText = @"Laden...";
-    [self.view addSubview:progressHud];
-    
-    [progressHud show:YES];*/
-    //[progressHud showWhileExecuting:@selector(didLoadImage) onTarget:self withObject:nil animated:YES];
 }
 
 - (void)dataReceivedNotification:(NSNotification*)notification
@@ -66,7 +59,6 @@
         //Load Data
         int dayInArray;
         int today;
-        //self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         
         if ([notification.name isEqualToString:@"mealsLoaded"])
         {
@@ -110,11 +102,17 @@
 {
     if (![dailyMeal.menu_a.picture isEqualToString:@""])
     {
+        //clear before set
+        [photoViewA removeFromSuperview];
+        
         photoViewA = [[TTImageView alloc] initWithFrame:CGRectMake(0, 0, 101, 101)];
         photoViewA.urlPath = [[[[NSString stringWithString:self.appDelegate.baseURLCouchDbString]stringByAppendingString:@"/hfuapp/"] stringByAppendingString:[self.appDelegate getStringDateFromDate:dailyMeal.date]] stringByAppendingString:@"/menu_a"];
         photoViewA.delegate = self;
         
-        [MBProgressHUD showHUDAddedTo:photoViewA animated:YES];
+        if (photoViewA.image == nil)
+        {
+            [MBProgressHUD showHUDAddedTo:photoViewA animated:YES];
+        }
         [self.bt_MenuA addSubview:photoViewA];
         [self.bt_MenuA setImage:photoViewA.image forState:UIControlStateNormal];
         photoViewA.userInteractionEnabled = NO;
@@ -128,11 +126,17 @@
     
     if (![dailyMeal.menu_b.picture isEqualToString:@""]) 
     {
+        //clear before set
+        [photoViewB removeFromSuperview];
+        
         photoViewB = [[TTImageView alloc] initWithFrame:CGRectMake(0, 0, 101, 101)];
         photoViewB.urlPath = [[[[NSString stringWithString:self.appDelegate.baseURLCouchDbString]stringByAppendingString:@"/hfuapp/"] stringByAppendingString:[self.appDelegate getStringDateFromDate:dailyMeal.date]] stringByAppendingString:@"/menu_b"];
         photoViewB.delegate = self;
-
-        [MBProgressHUD showHUDAddedTo:photoViewB animated:YES];
+        
+        if (photoViewB.image == nil)
+        {
+            [MBProgressHUD showHUDAddedTo:photoViewB animated:YES];
+        }
         [self.bt_MenuB addSubview:photoViewB];
         [self.bt_MenuB setImage:photoViewB.image forState:UIControlStateNormal];
         photoViewB.userInteractionEnabled = NO;
@@ -161,8 +165,14 @@
     
     if (dayInMeal != today)
     {
-        [self.bt_MenuA setEnabled:NO];
-        [self.bt_MenuB setEnabled:NO];
+        if ([dailyMeal.menu_a.picture isEqualToString:@""])
+        {
+            [self.bt_MenuA setEnabled:NO];
+        }
+        if ([dailyMeal.menu_b.picture isEqualToString:@""])
+        {
+            [self.bt_MenuB setEnabled:NO];
+        }
         
         [self.seg_MenuA setEnabled:NO];
         [self.seg_MenuB setEnabled:NO];
@@ -204,7 +214,7 @@
 - (IBAction)takePictureA:(id)sender {
     self.buttonType = @"menu_a";
     
-    if ([self.bt_MenuA imageForState:UIControlStateNormal] == nil)
+    if ([self.meals.menu_a.picture isEqualToString:@""])
     {
         [self takePictureOfMeal];
     }
@@ -217,7 +227,7 @@
 - (IBAction)takePictureB:(id)sender {
     self.buttonType = @"menu_b";
     
-    if ([self.bt_MenuB imageForState:UIControlStateNormal] == nil)
+    if ([self.meals.menu_b.picture isEqualToString:@""])
     {
         [self takePictureOfMeal];
     }
@@ -308,12 +318,12 @@
     
     if ([button isEqualToString:@"menu_a"])
     {
-        [[self bt_MenuA] setBackgroundImage:image forState:UIControlStateNormal];
+        [[self bt_MenuA] setImage:image forState:UIControlStateNormal];
         [self uploadPicture:@"menu_a" pathForMenuPicture:[NSHomeDirectory() stringByAppendingPathComponent:pathString]];
     }
     else 
     {
-        [[self bt_MenuB] setBackgroundImage:image forState:UIControlStateNormal];
+        [[self bt_MenuB] setImage:image forState:UIControlStateNormal];
         [self uploadPicture:@"menu_b" pathForMenuPicture:[NSHomeDirectory() stringByAppendingPathComponent:pathString]];
     }
     [self.view setNeedsDisplay];

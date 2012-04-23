@@ -8,11 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import <Three20/Three20.h>
+#import "MBProgressHUD.h"
 
-@interface FullScreenViewController : UIViewController
+@interface FullScreenViewController : UIViewController <TTImageViewDelegate>
 {
-    TTImageView *imageView;
+    TTImageView *imageViewFullScreen;
+    MBProgressHUD *progressHud;
 } 
+@property (assign, nonatomic)NSString* pathString; 
+
 - (id)initWithPicturePath:(NSString*)path;
 - (IBAction)bt_Close:(id)sender;
 
