@@ -16,7 +16,7 @@
 
 @class AppDelegate;
 
-@interface MealViewController : UIViewController <RKRequestDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, TTImageViewDelegate>
+@interface MealViewController : UIViewController <RKRequestDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, TTImageViewDelegate, UIAlertViewDelegate>
 {
     TTImageView *photoViewA;
     TTImageView *photoViewB;
@@ -46,5 +46,6 @@
 - (void) setWebViews:(DailyMenu*)dailyMeal;
 - (void) checkButtonState:(DailyMenu*)dailyMeal;
 - (void) presentFullScreenPicture:(NSString*) buttonType;
+- (void) makeMenuVote:(NSString*) menu vote:(NSString*) voting;
 
 @end

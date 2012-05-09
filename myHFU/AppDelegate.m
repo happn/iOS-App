@@ -14,7 +14,7 @@
 
 @implementation AppDelegate
 
-@synthesize window = _window, allMeals = _allMeals, moviePlayer = _moviePlayer, playerIsPlaying = _playerIsPlaying, loadedMeals = _loadedMeals, baseURLString = _baseURLString, baseURLCouchDbString = _baseURLCouchDbString;
+@synthesize window = _window, allMeals = _allMeals, moviePlayer = _moviePlayer, playerIsPlaying = _playerIsPlaying, loadedMeals = _loadedMeals, baseURLString = _baseURLString, baseURLCouchDbString = _baseURLCouchDbString, connectionHandler = _connectionHandler;
 @synthesize viewController = _viewController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -31,14 +31,14 @@
     [TTURLCache sharedCache].disableDiskCache = YES;
     [[TTURLCache sharedCache] removeAll:YES];
     
-    self.baseURLString = @"http://78.46.19.228:8010";
-    self.baseURLCouchDbString =  @"http://78.46.19.228:5984";
+    self.baseURLString = @"http://ec2-176-34-89-224.eu-west-1.compute.amazonaws.com:8010";
+    self.baseURLCouchDbString =  @"http://ec2-176-34-89-224.eu-west-1.compute.amazonaws.com:5984";
     
     RKClient *client = [RKClient clientWithBaseURLString:self.baseURLString];
     NSLog(@"I am your RKClient singleton : %@", [RKClient sharedClient]);
     
-    RKConnectionHandler *connectionHandler = [[RKConnectionHandler alloc] init];
-    [connectionHandler loadWeek:[self getCurrentDate]];
+    self.connectionHandler = [[RKConnectionHandler alloc] init];
+    [self.connectionHandler loadWeek:[self getCurrentDate]];
 
     //Stuff we do not need to change
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
@@ -237,9 +237,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    /*
-     Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-     */
+    [self.connectionHandler loadWeek:[self getCurrentDate]];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

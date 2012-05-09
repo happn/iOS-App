@@ -83,6 +83,7 @@
     if (self.loadedMeals == nil)
     {
         cell.textLabel.text = @"Loading...";
+        tableView.allowsSelection = NO;
     }
     else 
     {
@@ -92,6 +93,7 @@
         NSString *dateString = [dateFormatter stringFromDate:[[self.loadedMeals objectAtIndex:indexPath.row] date]];
         
         cell.textLabel.text = dateString;
+        tableView.allowsSelection = YES;
     }
     
     return cell;

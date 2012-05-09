@@ -386,8 +386,6 @@
 		478EE7421484EE3B0094CEC2 = {
 			isa = PBXGroup;
 			children = (
-				4735AC4D1558831700F5831E /* Icon@2x.png */,
-				4735AC4B1558831200F5831E /* Icon.png */,
 				47D423E3153B495700764D19 /* Three20Core.xcodeproj */,
 				47D423E4153B495700764D19 /* Three20Network.xcodeproj */,
 				47D423E5153B495700764D19 /* Three20Style.xcodeproj */,
@@ -397,6 +395,8 @@
 				47D423B3153B491B00764D19 /* Three20.xcodeproj */,
 				47551D3A152DA584001A5AD1 /* SocketRocket.xcodeproj */,
 				4739C96E152338E400F611A1 /* RestKit.xcodeproj */,
+				4735AC4D1558831700F5831E /* Icon@2x.png */,
+				4735AC4B1558831200F5831E /* Icon.png */,
 				47D7AF34153C663000D37CBD /* MBProgressHud */,
 				478EE7571484EE3C0094CEC2 /* myHFU */,
 				478EE7501484EE3C0094CEC2 /* Frameworks */,

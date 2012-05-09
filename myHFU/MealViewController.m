@@ -88,7 +88,7 @@
 
 - (void) setWebViews:(DailyMenu*)dailyMeal
 {
-    NSString *htmlStringTop = @"<html><title></title><body style=""background-color:transparent;"">";
+    NSString *htmlStringTop = @"<html><head><title></title><style>body{ font-family: Helvetica,Arial,sans-serif;     font-size: 13px; line-height: 19px; background-color:transparent;} body b { font-size:16px; line-height:21px; } </style></head><body>";
     NSString *htmlStringBottom = @"</body></html>";
     
     NSString *htmlSourceStringA = [[htmlStringTop stringByAppendingString:dailyMeal.menu_a.title] stringByAppendingString:htmlStringBottom];
@@ -237,10 +237,98 @@
     }
 }
 
-- (IBAction)seg_MenuAVote:(id)sender {
+#pragma voting on meals
+- (IBAction)seg_MenuAVote:(id)sender 
+{
+    NSString* voteString = @"";
+    
+    switch(self.seg_MenuA.selectedSegmentIndex)
+    {
+        case 0:
+            voteString = @"Möchtest du das Essen wirklich DOWN voten?";
+            break;
+        case 1:
+            voteString = @"Möchtest du das Essen wirklich UP voten?";
+            break;
+    }
+    
+    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Vote it!"
+                                                      message:voteString
+                                                     delegate:self
+                                            cancelButtonTitle:@"Och Nö"
+                                            otherButtonTitles:@"Yup!", nil];
+    message.tag = 0;
+    [message show];
 }
 
-- (IBAction)seg_MenuBVote:(id)sender {
+- (IBAction)seg_MenuBVote:(id)sender 
+{
+    NSString* voteString = @"";
+    
+    switch(self.seg_MenuA.selectedSegmentIndex)
+    {
+        case 0:
+            voteString = @"Möchtest du das Essen wirklich DOWN voten?";
+            break;
+        case 1:
+            voteString = @"Möchtest du das Essen wirklich UP voten?";
+            break;
+    }
+    
+    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Vote it!"
+                                                      message:voteString
+                                                     delegate:self
+                                            cancelButtonTitle:@"Och Nö"
+                                            otherButtonTitles:@"Yup!", nil];
+    message.tag = 1;
+    [message show];
+
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1)
+    {
+        self.seg_MenuA.enabled = NO;
+        self.seg_MenuB.enabled = NO;
+        
+        if (alertView.tag == 0)
+        {   
+            if(self.seg_MenuA.selectedSegmentIndex == 0)
+            {
+                [self makeMenuVote:@"a" vote:@"down"];
+            }
+            else 
+            {
+                [self makeMenuVote:@"a" vote:@"up"];
+            }
+            
+        }
+        else 
+        {
+            if(self.seg_MenuB.selectedSegmentIndex == 0)
+            {
+                [self makeMenuVote:@"b" vote:@"down"];
+            }
+            else 
+            {
+                [self makeMenuVote:@"b" vote:@"up"];
+            }
+        }
+    }
+}
+
+- (void) makeMenuVote:(NSString*) menu vote:(NSString*) voting
+{
+    NSString* voteString = [NSString stringWithFormat:@"/v1/vote%@", self.appDelegate.getCurrentDate];
+    
+    
+    NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            @"blub", @"user", voting, @"vote", menu, @"menu", nil];
+    
+    //[[RKClient sharedClient] get:voteString queryParameters:params delegate:self];
+    
+    [[RKClient sharedClient] post:voteString params:params delegate:self];
 }
 
 - (void) presentFullScreenPicture:(NSString*) buttonType
@@ -336,20 +424,44 @@
     [handler uploadImage:path forMenu:menuType setDelegate:self];
 }
 
-- (void)requestDidStartLoad:(RKRequest *)request {
-    
-    /*_uploadButton.enabled = NO;
-     [_activityIndicatorView startAnimating];*/
+- (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObject:(id)object
+{
+    RKLogInfo(@"didLoadObjects Id"); 
+}
+ 
+- (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjectDictionary:(NSDictionary*)dictionary
+{
+    RKLogInfo(@"didLoadObjectDictionary");  
+}
+ 
+- (void)objectLoaderDidFinishLoading:(RKObjectLoader*)objectLoader
+{
+    RKLogInfo(@"objectLoaderDidFinishLoading"); 
+}
+ 
+- (void)objectLoaderDidLoadUnexpectedResponse:(RKObjectLoader*)objectLoader
+{
+    RKLogInfo(@"objectLoaderDidLoadUnexpectedResponse"); 
+}
+ 
+- (void)objectLoader:(RKObjectLoader*)loader willMapData:(inout id *)mappableData
+{
+    RKLogInfo(@"willMapData"); 
+}
+
+- (void)requestDidStartLoad:(RKRequest *)request 
+{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 }
 
 - (void)request:(RKRequest *)request didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite 
 {
-    /*
-     _progressView.progress = (totalBytesWritten / totalBytesExpectedToWrite) * 100.0;*/
+    /*_progressView.progress = (totalBytesWritten / totalBytesExpectedToWrite) * 100.0;*/
 }
 
-- (void)request:(RKRequest *)request didLoadResponse:(RKResponse *)response {
-    
+- (void)request:(RKRequest *)request didLoadResponse:(RKResponse *)response 
+{
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 }
 
 - (void)request:(RKRequest *)request didFailLoadWithError:(NSError *)error {
@@ -370,7 +482,6 @@
     [self setWebView_MenuB:nil];
     [self setSeg_MenuB:nil];
     [self setSeg_MenuA:nil];
-    [self setSeg_MenuB:nil];
 
     [super viewDidUnload];
 }

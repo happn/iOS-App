@@ -17,6 +17,7 @@
 #import "MealViewController.h"
 
 @class JASidePanelController;
+@class RKConnectionHandler;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, RKObjectLoaderDelegate>
 
@@ -28,6 +29,7 @@
 @property (strong, nonatomic) MPMoviePlayerController *moviePlayer;
 @property (assign, nonatomic) BOOL playerIsPlaying;
 @property (strong, nonatomic) JASidePanelController *viewController;
+@property (strong, nonatomic) RKConnectionHandler *connectionHandler;
 
 - (NSString*)getCurrentDate;
 - (NSDate*)getCurrentDateAsDate;

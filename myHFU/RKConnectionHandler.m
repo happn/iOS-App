@@ -62,7 +62,7 @@
     RKParams *params = [RKParams params];
 
     NSData *imageData = [NSData dataWithContentsOfFile:path];
-    [params setData:imageData MIMEType:@"image/png" forParam:menu];
+    [params setData:imageData MIMEType:@"image/jpg" forParam:menu];
     
     // Log info about the serialization
     NSLog(@"RKParams HTTPHeaderValueForContentType = %@", [params HTTPHeaderValueForContentType]);
