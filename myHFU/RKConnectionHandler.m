@@ -31,6 +31,16 @@
 	return self;
 }
 
+- (void) makeMenuVote:(NSString*) menu parameter:(NSDictionary*) params
+{
+    self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    //NSString *serverAdress = self.appDelegate.baseURLString;
+    NSString *resourcePath = [[NSString stringWithFormat:@"/v1/vote%@", self.appDelegate.getCurrentDate] appendQueryParams:params];
+
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:resourcePath delegate:self];
+}
+
 - (void) loadDay:(NSString*) dateString
 {
     self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -72,30 +82,9 @@
     [[RKClient sharedClient] put:@"/v1/picture" params:params delegate:object];
 }
 
-/*
-- (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObject:(id)object
-{
-   RKLogInfo(@"didLoadObjects Id"); 
-}
+- (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error;
+{}
 
-- (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjectDictionary:(NSDictionary*)dictionary
-{
-   RKLogInfo(@"didLoadObjectDictionary");  
-}
 
-- (void)objectLoaderDidFinishLoading:(RKObjectLoader*)objectLoader
-{
-    RKLogInfo(@"objectLoaderDidFinishLoading"); 
-}
 
-- (void)objectLoaderDidLoadUnexpectedResponse:(RKObjectLoader*)objectLoader
-{
-   RKLogInfo(@"objectLoaderDidLoadUnexpectedResponse"); 
-}
-
-- (void)objectLoader:(RKObjectLoader*)loader willMapData:(inout id *)mappableData
-{
-    RKLogInfo(@"willMapData"); 
-}
-*/
 @end

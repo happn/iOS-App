@@ -35,10 +35,14 @@
     self.baseURLCouchDbString =  @"http://ec2-176-34-89-224.eu-west-1.compute.amazonaws.com:5984";
     
     RKClient *client = [RKClient clientWithBaseURLString:self.baseURLString];
+    [client setAuthenticationType:RKRequestAuthenticationTypeHTTPBasic];
+    client.username = @"appclient";
+    client.password = @"lassmiendlichnei";
+    
     NSLog(@"I am your RKClient singleton : %@", [RKClient sharedClient]);
     
     self.connectionHandler = [[RKConnectionHandler alloc] init];
-    [self.connectionHandler loadWeek:[self getCurrentDate]];
+    //[self.connectionHandler loadWeek:[self getCurrentDate]];
 
     //Stuff we do not need to change
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];

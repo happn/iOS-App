@@ -26,6 +26,7 @@
 @property (assign, nonatomic) DailyMenu *meals;
 @property (assign, nonatomic) AppDelegate *appDelegate;
 @property (assign, nonatomic) NSString *buttonType;
+@property (assign, nonatomic) NSUserDefaults *prefs;
 
 - (IBAction)takePictureA:(id)sender;
 - (IBAction)takePictureB:(id)sender;

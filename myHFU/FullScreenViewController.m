@@ -63,16 +63,13 @@
 {
     [super viewDidLoad];
     
-    
-    
     imageViewFullScreen = [[TTImageView alloc] initWithFrame:CGRectMake(0, 40, 320, 460)];
     imageViewFullScreen.delegate = self;
     imageViewFullScreen.urlPath = self.pathString;
     
     [MBProgressHUD showHUDAddedTo:imageViewFullScreen animated:YES];
-    [self.view addSubview:imageViewFullScreen];
-
-    // Do any additional setup after loading the view from its nib.
+    [self.view addSubview:imageViewFullScreen];    
+    
 }
 
 - (void)viewDidUnload

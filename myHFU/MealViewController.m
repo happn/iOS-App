@@ -18,7 +18,7 @@
 @synthesize webView_MenuB = _webView_MenuB;
 
 
-@synthesize appDelegate = _appDelegate, buttonType = _buttonType, meals = _meals;
+@synthesize appDelegate = _appDelegate, buttonType = _buttonType, meals = _meals, prefs = _prefs;
 
 - (id)init
 {
@@ -56,34 +56,34 @@
 
 - (void)dataReceivedNotification:(NSNotification*)notification
 {        
-        //Load Data
-        int dayInArray;
-        int today;
+    //Load Data
+    int dayInArray;
+    int today;
         
-        if ([notification.name isEqualToString:@"mealsLoaded"])
+    if ([notification.name isEqualToString:@"mealsLoaded"])
+    {
+        for (int i = 0; i < [self.appDelegate.loadedMeals count]; i++) 
         {
-            for (int i = 0; i < [self.appDelegate.loadedMeals count]; i++) 
-            {
-                dayInArray = [[NSCalendar currentCalendar] ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:[[self.appDelegate.loadedMeals objectAtIndex:i] date]];
-                today = [[NSCalendar currentCalendar] ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:[self.appDelegate getCurrentDateAsDate]];
+            dayInArray = [[NSCalendar currentCalendar] ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:[[self.appDelegate.loadedMeals objectAtIndex:i] date]];
+            today = [[NSCalendar currentCalendar] ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:[self.appDelegate getCurrentDateAsDate]];
                 
-                if (dayInArray == today)
-                {
-                    self.meals = [self.appDelegate.loadedMeals objectAtIndex:i];
+            if (dayInArray == today)
+            {
+                self.meals = [self.appDelegate.loadedMeals objectAtIndex:i];
                     break;
-                }
             }
         }
-        else if ([notification.name isEqualToString:@"dayChanged"])
-        {
-            NSNumber *i = [notification.userInfo valueForKey:@"index"];
-            self.meals = [self.appDelegate.loadedMeals objectAtIndex:[i unsignedIntValue]];
-        }
+    }
+    else if ([notification.name isEqualToString:@"dayChanged"])
+    {
+        NSNumber *i = [notification.userInfo valueForKey:@"index"];
+        self.meals = [self.appDelegate.loadedMeals objectAtIndex:[i unsignedIntValue]];
+    }
         
-        [self checkButtonState:self.meals];
-        [self setButtons:self.meals];
-        [self setWebViews:self.meals];
-        //End Load Data
+    [self checkButtonState:self.meals];
+    [self setButtons:self.meals];
+    [self setWebViews:self.meals];
+    //End Load Data
 }
 
 - (void) setWebViews:(DailyMenu*)dailyMeal
@@ -130,13 +130,10 @@
         [photoViewB removeFromSuperview];
         
         photoViewB = [[TTImageView alloc] initWithFrame:CGRectMake(0, 0, 101, 101)];
-        photoViewB.urlPath = [[[[NSString stringWithString:self.appDelegate.baseURLCouchDbString]stringByAppendingString:@"/hfuapp/"] stringByAppendingString:[self.appDelegate getStringDateFromDate:dailyMeal.date]] stringByAppendingString:@"/menu_b"];
+        photoViewB.urlPath = dailyMeal.menu_b.picture;
         photoViewB.delegate = self;
         
-        if (photoViewB.image == nil)
-        {
-            [MBProgressHUD showHUDAddedTo:photoViewB animated:YES];
-        }
+
         [self.bt_MenuB addSubview:photoViewB];
         [self.bt_MenuB setImage:photoViewB.image forState:UIControlStateNormal];
         photoViewB.userInteractionEnabled = NO;
@@ -153,6 +150,7 @@
     
     [self.seg_MenuB setTitle:[[NSString stringWithString:@"▼ "] stringByAppendingString:[dailyMeal.menu_b.downVotes stringValue]] forSegmentAtIndex:0];
     [self.seg_MenuB setTitle:[[dailyMeal.menu_b.upVotes stringValue] stringByAppendingString:@" ▲"] forSegmentAtIndex:1];
+    
 }
 
 - (void) checkButtonState:(DailyMenu*)dailyMeal
@@ -182,8 +180,19 @@
         [self.bt_MenuA setEnabled:YES];
         [self.bt_MenuB setEnabled:YES];
         
-        [self.seg_MenuA setEnabled:YES];
-        [self.seg_MenuB setEnabled:YES];
+        BOOL voting = [[NSUserDefaults standardUserDefaults] boolForKey:self.appDelegate.getCurrentDateWithoutSlash];
+        
+        if (voting == NO)
+        {
+            [self.seg_MenuA setEnabled:YES];
+            [self.seg_MenuB setEnabled:YES];
+
+        }
+        else {
+            [self.seg_MenuA setEnabled:NO];
+            [self.seg_MenuB setEnabled:NO];
+
+        }
     }
 }
 
@@ -265,7 +274,7 @@
 {
     NSString* voteString = @"";
     
-    switch(self.seg_MenuA.selectedSegmentIndex)
+    switch(self.seg_MenuB.selectedSegmentIndex)
     {
         case 0:
             voteString = @"Möchtest du das Essen wirklich DOWN voten?";
@@ -287,6 +296,7 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    
     if (buttonIndex == 1)
     {
         self.seg_MenuA.enabled = NO;
@@ -329,11 +339,27 @@
     //[[RKClient sharedClient] get:voteString queryParameters:params delegate:self];
     
     [[RKClient sharedClient] post:voteString params:params delegate:self];
+    
+    RKConnectionHandler *handler = [[RKConnectionHandler alloc] init];
+    //[handler makeMenuVote:voteString parameter:params];
+    
+    [handler loadWeek:self.appDelegate.getCurrentDate];
+    
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:self.appDelegate.getCurrentDateWithoutSlash]; 
 }
 
 - (void) presentFullScreenPicture:(NSString*) buttonType
 {
-    NSString* path = [[[[[NSString stringWithString:self.appDelegate.baseURLCouchDbString] stringByAppendingString:@"/hfuapp/"] stringByAppendingString:[self.appDelegate getStringDateFromDate:self.meals.date]] stringByAppendingString:@"/"] stringByAppendingString:buttonType];
+    NSString* path;
+    
+    if ([buttonType isEqualToString:@"menu_a"])
+    {
+        path = self.meals.menu_a.picture;
+    }
+    else
+    {
+        path = self.meals.menu_b.picture;
+    }
     
     FullScreenViewController *fullScreenViewController = [[FullScreenViewController alloc] initWithPicturePath:path];
     [self presentModalViewController:fullScreenViewController animated:YES];
@@ -422,31 +448,6 @@
     RKConnectionHandler *handler = [[RKConnectionHandler alloc] init];
     
     [handler uploadImage:path forMenu:menuType setDelegate:self];
-}
-
-- (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObject:(id)object
-{
-    RKLogInfo(@"didLoadObjects Id"); 
-}
- 
-- (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjectDictionary:(NSDictionary*)dictionary
-{
-    RKLogInfo(@"didLoadObjectDictionary");  
-}
- 
-- (void)objectLoaderDidFinishLoading:(RKObjectLoader*)objectLoader
-{
-    RKLogInfo(@"objectLoaderDidFinishLoading"); 
-}
- 
-- (void)objectLoaderDidLoadUnexpectedResponse:(RKObjectLoader*)objectLoader
-{
-    RKLogInfo(@"objectLoaderDidLoadUnexpectedResponse"); 
-}
- 
-- (void)objectLoader:(RKObjectLoader*)loader willMapData:(inout id *)mappableData
-{
-    RKLogInfo(@"willMapData"); 
 }
 
 - (void)requestDidStartLoad:(RKRequest *)request 
