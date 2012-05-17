@@ -332,19 +332,16 @@
 {
     NSString* voteString = [NSString stringWithFormat:@"/v1/vote%@", self.appDelegate.getCurrentDate];
     
+    ;
+
     
     NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            @"blub", @"user", voting, @"vote", menu, @"menu", nil];
+                            [[NSUserDefaults standardUserDefaults] objectForKey:@"UID_USER_DEFAULTS_KEY"], @"user", voting, @"vote", menu, @"menu", nil];
     
     //[[RKClient sharedClient] get:voteString queryParameters:params delegate:self];
     
     [[RKClient sharedClient] post:voteString params:params delegate:self];
-    
-    RKConnectionHandler *handler = [[RKConnectionHandler alloc] init];
-    //[handler makeMenuVote:voteString parameter:params];
-    
-    [handler loadWeek:self.appDelegate.getCurrentDate];
-    
+
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:self.appDelegate.getCurrentDateWithoutSlash]; 
 }
 
@@ -463,6 +460,9 @@
 - (void)request:(RKRequest *)request didLoadResponse:(RKResponse *)response 
 {
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+    
+    RKConnectionHandler *handler = [[RKConnectionHandler alloc] init];
+    [handler loadWeek:self.appDelegate.getCurrentDate];
 }
 
 - (void)request:(RKRequest *)request didFailLoadWithError:(NSError *)error {

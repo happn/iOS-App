@@ -10,6 +10,22 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import "AppDelegate.h"
 
+//Generate UserID
+@interface NSString (UUID)
++ (NSString *)uuid;
+@end 
+
+@implementation NSString (UUID)
++ (NSString *)uuid {
+    NSString *uuidString = nil;
+    CFUUIDRef uuid = CFUUIDCreate(NULL);
+    if (uuid) {
+        uuidString = (__bridge_transfer NSString *)CFUUIDCreateString(NULL, uuid);
+        CFRelease(uuid);
+    }
+    return uuidString;
+} 
+@end
 
 
 @implementation AppDelegate
@@ -19,6 +35,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    //Testflight Live activation
+    [TestFlight takeOff:@"2398fdad899edb548aab3abd62a3da34_OTAxODYyMDEyLTA1LTE0IDE2OjUyOjQ3LjAxOTcwNw"];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     self.viewController = [[JASidePanelController alloc] init];
@@ -34,7 +53,16 @@
     self.baseURLString = @"http://ec2-176-34-89-224.eu-west-1.compute.amazonaws.com:8010";
     self.baseURLCouchDbString =  @"http://ec2-176-34-89-224.eu-west-1.compute.amazonaws.com:5984";
     
-    RKClient *client = [RKClient clientWithBaseURLString:self.baseURLString];
+    //set userID
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults objectForKey:@"UID_USER_DEFAULTS_KEY"] == nil) {
+        [defaults setObject:[NSString uuid] forKey:@"UID_USER_DEFAULTS_KEY"];
+        [defaults synchronize];
+    }
+    
+    RKObjectManager *manager = [RKObjectManager objectManagerWithBaseURLString:self.baseURLString];
+    RKClient *client = manager.client;
+    //RKClient *client = [RKClient clientWithBaseURLString:self.baseURLString];
     [client setAuthenticationType:RKRequestAuthenticationTypeHTTPBasic];
     client.username = @"appclient";
     client.password = @"lassmiendlichnei";

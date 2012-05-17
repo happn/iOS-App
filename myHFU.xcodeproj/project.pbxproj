@@ -33,6 +33,8 @@
 		477366A2152C509300EF53B5 /* DailyMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 477366A1152C509300EF53B5 /* DailyMenu.m */; };
 		4773F5A1153C36580011C7E5 /* FullScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4773F59F153C36580011C7E5 /* FullScreenViewController.m */; };
 		4773F5A2153C36580011C7E5 /* FullScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4773F5A0153C36580011C7E5 /* FullScreenViewController.xib */; };
+		477A914B1561A6EB000F52EF /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 477A91491561A6EA000F52EF /* libTestFlight.a */; };
+		477A914D1561A7A4000F52EF /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 477A914C1561A7A4000F52EF /* libz.dylib */; };
 		478716E31537132300492726 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 478716E21537132300492726 /* MapKit.framework */; };
 		478EE7521484EE3C0094CEC2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 478EE7511484EE3C0094CEC2 /* UIKit.framework */; };
 		478EE7541484EE3C0094CEC2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 478EE7531484EE3C0094CEC2 /* Foundation.framework */; };
@@ -270,8 +272,11 @@
 		4773F59E153C36580011C7E5 /* FullScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullScreenViewController.h; sourceTree = "<group>"; };
 		4773F59F153C36580011C7E5 /* FullScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullScreenViewController.m; sourceTree = "<group>"; };
 		4773F5A0153C36580011C7E5 /* FullScreenViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FullScreenViewController.xib; sourceTree = "<group>"; };
+		477A91491561A6EA000F52EF /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTestFlight.a; path = myHFU/libTestFlight.a; sourceTree = "<group>"; };
+		477A914A1561A6EA000F52EF /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
+		477A914C1561A7A4000F52EF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		478716E21537132300492726 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		478EE74D1484EE3C0094CEC2 /* myHFU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myHFU.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		478EE74D1484EE3C0094CEC2 /* Happn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Happn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		478EE7511484EE3C0094CEC2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		478EE7531484EE3C0094CEC2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		478EE7551484EE3C0094CEC2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -313,6 +318,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				477A914D1561A7A4000F52EF /* libz.dylib in Frameworks */,
 				47D42419153B49BB00764D19 /* libThree20.a in Frameworks */,
 				47D4241A153B49BB00764D19 /* libThree20Core.a in Frameworks */,
 				47D4241B153B49BB00764D19 /* libThree20Network.a in Frameworks */,
@@ -336,6 +342,7 @@
 				478EE7521484EE3C0094CEC2 /* UIKit.framework in Frameworks */,
 				478EE7541484EE3C0094CEC2 /* Foundation.framework in Frameworks */,
 				478EE7561484EE3C0094CEC2 /* CoreGraphics.framework in Frameworks */,
+				477A914B1561A6EB000F52EF /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -386,6 +393,7 @@
 		478EE7421484EE3B0094CEC2 = {
 			isa = PBXGroup;
 			children = (
+				477A914C1561A7A4000F52EF /* libz.dylib */,
 				47D423E3153B495700764D19 /* Three20Core.xcodeproj */,
 				47D423E4153B495700764D19 /* Three20Network.xcodeproj */,
 				47D423E5153B495700764D19 /* Three20Style.xcodeproj */,
@@ -407,7 +415,7 @@
 		478EE74E1484EE3C0094CEC2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				478EE74D1484EE3C0094CEC2 /* myHFU.app */,
+				478EE74D1484EE3C0094CEC2 /* Happn.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -415,6 +423,7 @@
 		478EE7501484EE3C0094CEC2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				477A91491561A6EA000F52EF /* libTestFlight.a */,
 				478716E21537132300492726 /* MapKit.framework */,
 				47EEA8F9152A3351005E109A /* libicucore.dylib */,
 				4739C968152318D600F611A1 /* libxml2.dylib */,
@@ -436,6 +445,7 @@
 		478EE7571484EE3C0094CEC2 /* myHFU */ = {
 			isa = PBXGroup;
 			children = (
+				477A914A1561A6EA000F52EF /* TestFlight.h */,
 				47551D61152DAC64001A5AD1 /* LeftTableViewController.h */,
 				47551D62152DAC64001A5AD1 /* LeftTableViewController.m */,
 				47551D63152DAC64001A5AD1 /* LeftTableViewController.xib */,
@@ -554,9 +564,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		478EE74C1484EE3C0094CEC2 /* myHFU */ = {
+		478EE74C1484EE3C0094CEC2 /* Happn */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 478EE7761484EE3C0094CEC2 /* Build configuration list for PBXNativeTarget "myHFU" */;
+			buildConfigurationList = 478EE7761484EE3C0094CEC2 /* Build configuration list for PBXNativeTarget "Happn" */;
 			buildPhases = (
 				478EE7491484EE3C0094CEC2 /* Sources */,
 				478EE74A1484EE3C0094CEC2 /* Frameworks */,
@@ -568,9 +578,9 @@
 				478716E1153712CD00492726 /* PBXTargetDependency */,
 				47551D4C152DA5B9001A5AD1 /* PBXTargetDependency */,
 			);
-			name = myHFU;
+			name = Happn;
 			productName = myHFU;
-			productReference = 478EE74D1484EE3C0094CEC2 /* myHFU.app */;
+			productReference = 478EE74D1484EE3C0094CEC2 /* Happn.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -633,7 +643,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				478EE74C1484EE3C0094CEC2 /* myHFU */,
+				478EE74C1484EE3C0094CEC2 /* Happn */,
 			);
 		};
 /* End PBXProject section */
@@ -909,24 +919,21 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Benjamin Ruoff";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					"\"$(SOURCE_ROOT)/RestKit/Build\"",
-					"\"$(SOURCE_ROOT)/three20/Build/Products/three20\"",
-				);
+				HEADER_SEARCH_PATHS = "\"$(SOURCE_ROOT)/RestKit/Build\"";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
 				);
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7BD71A55-ACB5-4948-B0A5-C4612A4D2750";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -946,7 +953,10 @@
 				);
 				INFOPLIST_FILE = "myHFU/myHFU-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/myHFU\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -960,23 +970,27 @@
 		478EE7781484EE3C0094CEC2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Benjamin Ruoff (K9CUDN5JR9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Benjamin Ruoff";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "myHFU/myHFU-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"\"$(SOURCE_ROOT)/SocketRocket/Build\"",
 					"$(BUILT_PRODUCTS_DIR)/../../Headers",
 					"$(BUILT_PRODUCTS_DIR)/SDWebImage",
-					"$(BUILT_PRODUCTS_DIR)/../three20",
+					"$(BUILT_PRODUCTS_DIR)/../../three20",
 				);
 				INFOPLIST_FILE = "myHFU/myHFU-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/myHFU\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "120B80CB-A4C3-4243-BA80-80582FDA7795";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B849F009-5841-46D0-9C59-1F7875595465";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -993,7 +1007,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		478EE7761484EE3C0094CEC2 /* Build configuration list for PBXNativeTarget "myHFU" */ = {
+		478EE7761484EE3C0094CEC2 /* Build configuration list for PBXNativeTarget "Happn" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				478EE7771484EE3C0094CEC2 /* Debug */,

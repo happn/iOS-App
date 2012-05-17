@@ -58,11 +58,11 @@
 {
     self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
-    NSString *serverAdress = self.appDelegate.baseURLString;
     NSString *resourcePath = @"/v1/week";
     resourcePath = [resourcePath stringByAppendingString:dateString];
     
-    RKObjectManager *manager = [RKObjectManager objectManagerWithBaseURLString:serverAdress];
+    RKObjectManager *manager = [RKObjectManager sharedManager];
+    
     [manager.mappingProvider setObjectMapping:self.dailyMealMapping forKeyPath:@"data"];
     [manager loadObjectsAtResourcePath:resourcePath  delegate:self.appDelegate];
 }

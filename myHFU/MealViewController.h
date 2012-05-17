@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "DailyMenu.h"
 #import "AppDelegate.h"
-#import "UIImageView+WebCache.h"
 #import <Three20/Three20.h>
 #import "FullScreenViewController.h"
 #import "MBProgressHUD.h"
