@@ -18,7 +18,7 @@
 @synthesize webView_MenuB = _webView_MenuB;
 
 
-@synthesize appDelegate = _appDelegate, buttonType = _buttonType, meals = _meals, prefs = _prefs;
+@synthesize appDelegate = _appDelegate, buttonType = _buttonType, meals = _meals, prefs = _prefs, progressHud = _progressHud;
 
 - (id)init
 {
@@ -42,6 +42,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"Lade aktuellen Speiseplan";
     
     self.webView_MenuA.opaque = NO;
     self.webView_MenuA.scrollView.scrollEnabled = NO; 
@@ -55,7 +57,7 @@
 }
 
 - (void)dataReceivedNotification:(NSNotification*)notification
-{        
+{     
     //Load Data
     int dayInArray;
     int today;
@@ -84,6 +86,7 @@
     [self setButtons:self.meals];
     [self setWebViews:self.meals];
     //End Load Data
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 }
 
 - (void) setWebViews:(DailyMenu*)dailyMeal
@@ -133,7 +136,10 @@
         photoViewB.urlPath = dailyMeal.menu_b.picture;
         photoViewB.delegate = self;
         
-
+        if (photoViewB.image == nil)
+        {
+            [MBProgressHUD showHUDAddedTo:photoViewB animated:YES];
+        }
         [self.bt_MenuB addSubview:photoViewB];
         [self.bt_MenuB setImage:photoViewB.image forState:UIControlStateNormal];
         photoViewB.userInteractionEnabled = NO;
@@ -200,8 +206,8 @@
  * Called when the image begins loading asynchronously.
  */
 - (void)imageViewDidStartLoad:(TTImageView*)imageView {
-    
     NSLog(@"loading image...");
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 }
 
 /**
@@ -331,14 +337,8 @@
 - (void) makeMenuVote:(NSString*) menu vote:(NSString*) voting
 {
     NSString* voteString = [NSString stringWithFormat:@"/v1/vote%@", self.appDelegate.getCurrentDate];
-    
-    ;
-
-    
     NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
                             [[NSUserDefaults standardUserDefaults] objectForKey:@"UID_USER_DEFAULTS_KEY"], @"user", voting, @"vote", menu, @"menu", nil];
-    
-    //[[RKClient sharedClient] get:voteString queryParameters:params delegate:self];
     
     [[RKClient sharedClient] post:voteString params:params delegate:self];
 
@@ -449,12 +449,14 @@
 
 - (void)requestDidStartLoad:(RKRequest *)request 
 {
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.progressHud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.progressHud.mode = MBProgressHUDModeAnnularDeterminate;
+    self.progressHud.labelText = @"Lade Bild hoch";
 }
 
 - (void)request:(RKRequest *)request didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite 
 {
-    /*_progressView.progress = (totalBytesWritten / totalBytesExpectedToWrite) * 100.0;*/
+    self.progressHud.progress = (totalBytesWritten / totalBytesExpectedToWrite) * 100.0;
 }
 
 - (void)request:(RKRequest *)request didLoadResponse:(RKResponse *)response 

@@ -366,6 +366,10 @@
             buttonController.navigationItem.titleView = img;
             buttonController.navigationItem.leftBarButtonItem = [self leftButtonForCenterPanel];
         }
+        if (!buttonController.navigationItem.rightBarButtonItem)
+        {
+            buttonController.navigationItem.rightBarButtonItem = [self rightButtonForCenterPanel];
+        }
     }	
 }
 
@@ -761,6 +765,12 @@
     return [[UIBarButtonItem alloc] initWithImage:[[self class] defaultImage] style:UIBarButtonItemStylePlain target:self action:@selector(toggleLeftPanel:)];
 }
 
+- (UIBarButtonItem *)rightButtonForCenterPanel {
+    UIButton* infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
+    [infoButton addTarget:self action:@selector(showInfoPanel:) forControlEvents:UIControlEventTouchUpInside];
+    return [[UIBarButtonItem alloc] initWithCustomView:infoButton];
+}
+
 - (UIViewController *)gestureController {
     return self.centerPanel;
 }
@@ -791,6 +801,12 @@
     } else if (self.state == JASidePanelCenterVisible) {
         [self _showRightPanel:YES bounce:NO];
     }
+}
+
+- (void)showInfoPanel:(id)sender 
+{
+    InfoViewController *infoView = [[InfoViewController alloc] init];
+    [self presentModalViewController:infoView animated:YES];
 }
 
 @end

@@ -14,6 +14,7 @@
 #import "WebSocketTest.h"
 #import "JASidePanelController.h"
 #import "LeftTableViewController.h"
+#import "RightViewController.h"
 #import "MealViewController.h"
 
 @class JASidePanelController;

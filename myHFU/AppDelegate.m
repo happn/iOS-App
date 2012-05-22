@@ -42,6 +42,7 @@
     
     self.viewController = [[JASidePanelController alloc] init];
     self.viewController.leftPanel = [[LeftTableViewController alloc] init];
+    //self.viewController.rightPanel = [[RightViewController alloc] init];
     self.viewController.centerPanel = [[UINavigationController alloc] initWithRootViewController:[[MealViewController alloc] init]];
     
     self.window.rootViewController = self.viewController;
@@ -50,8 +51,8 @@
     [TTURLCache sharedCache].disableDiskCache = YES;
     [[TTURLCache sharedCache] removeAll:YES];
     
-    self.baseURLString = @"http://ec2-176-34-89-224.eu-west-1.compute.amazonaws.com:8010";
-    self.baseURLCouchDbString =  @"http://ec2-176-34-89-224.eu-west-1.compute.amazonaws.com:5984";
+    self.baseURLString = @"http://appserver.happn.de:8010";
+    self.baseURLCouchDbString =  @"http://appserver.happn.de:5984";
     
     //set userID
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
