@@ -12,4 +12,5 @@
 
 - (IBAction)bt_close:(id)sender;
 
+@property (weak, nonatomic) IBOutlet UIWebView *infoWebView;
 @end

@@ -1,0 +1,111 @@
+body
+{ 
+    font-family: Helvetica,Arial,sans-serif;     
+    font-size: 13px; 
+    line-height: 19px; 
+    background-color:transparent;
+    height: auto;
+    padding: 5%;
+    padding-top: 1%;
+    padding-right: 5%;
+    padding-bottom: 5%;
+    padding-left: 5%;
+}
+
+body b 
+{ 
+    font-size:16px; 
+} 
+body h3 
+{
+    color:#D98451;
+    margin: 20px 0 10px;
+    margin-top: 20px;
+    margin-right: 0px;
+    margin-bottom: 10px;
+    margin-left: 0px;
+}
+
+body b 
+{
+    font-weight: bold;
+    font-size: 14px;
+    color:#D98451;
+}
+
+body a
+{
+    border: 1px dashed #C8C8C8;
+    padding: 0px 5px 0px 5px;
+    border-radius: 6px;
+    color: black;
+    text-decoration: none;
+}
+
+body h1
+{
+    font-size: 27px;
+    color: #D98451;
+    line-height:normal;
+    margin: 40px 0 20px -1px;
+}
+
+p 
+{
+    margin: 0 0 10px;
+    display: block;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+}
+
+pre 
+{
+    margin: 15px 0 25px;
+}
+pre 
+{
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+pre, code, kbd, samp 
+{
+    font-family: monospace, serif;
+    font-size: 1em;
+}
+pre, xmp, plaintext, listing 
+{
+    display: block;
+    font-family: monospace;
+    margin: 1em 0px;
+}
+pre code 
+{
+    display: block;
+    overflow: auto;
+    background: #fafafa;
+    border: 1px solid #ddd;
+}
+pre code 
+{
+    padding: 14px 14px 14px 19px;
+}
+code 
+{
+    max-width: 100%;
+    display: inline;
+    background:#eee;
+}
+code 
+{
+    -webkit-font-smoothing: subpixel-antialiased;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 15px;
+}
+code 
+{
+    font-family: "Monaco", "Consolas", "Lucida Console", monospace;
+}

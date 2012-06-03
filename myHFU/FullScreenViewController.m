@@ -63,7 +63,7 @@
 {
     [super viewDidLoad];
     
-    imageViewFullScreen = [[TTImageView alloc] initWithFrame:CGRectMake(0, 40, 320, 460)];
+    imageViewFullScreen = [[TTImageView alloc] initWithFrame:CGRectMake(0, 44, 320, 416)];
     imageViewFullScreen.delegate = self;
     imageViewFullScreen.urlPath = self.pathString;
     

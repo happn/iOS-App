@@ -46,6 +46,8 @@
 		478EE75C1484EE3C0094CEC2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 478EE75A1484EE3C0094CEC2 /* InfoPlist.strings */; };
 		478EE75E1484EE3C0094CEC2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 478EE75D1484EE3C0094CEC2 /* main.m */; };
 		478EE7621484EE3C0094CEC2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 478EE7611484EE3C0094CEC2 /* AppDelegate.m */; };
+		478F0538156C62150005F40A /* infoStyle.css in Resources */ = {isa = PBXBuildFile; fileRef = 478F0537156C62150005F40A /* infoStyle.css */; };
+		478F053A156CFBB40005F40A /* infoView.html in Resources */ = {isa = PBXBuildFile; fileRef = 478F0539156CFBB40005F40A /* infoView.html */; };
 		479AE15D1530B92A003695E8 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 479AE15B1530B92A003695E8 /* bg.png */; };
 		479AE1611531D903003695E8 /* takephoto.png in Resources */ = {isa = PBXBuildFile; fileRef = 479AE15F1531D903003695E8 /* takephoto.png */; };
 		479AE1621531D903003695E8 /* takephoto@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 479AE1601531D903003695E8 /* takephoto@2x.png */; };
@@ -296,6 +298,8 @@
 		478EE75F1484EE3C0094CEC2 /* myHFU-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "myHFU-Prefix.pch"; sourceTree = "<group>"; };
 		478EE7601484EE3C0094CEC2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		478EE7611484EE3C0094CEC2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		478F0537156C62150005F40A /* infoStyle.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = infoStyle.css; sourceTree = "<group>"; };
+		478F0539156CFBB40005F40A /* infoView.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = infoView.html; sourceTree = "<group>"; };
 		479AE15B1530B92A003695E8 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bg.png; path = Resources/bg.png; sourceTree = "<group>"; };
 		479AE15F1531D903003695E8 /* takephoto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = takephoto.png; path = Resources/takephoto.png; sourceTree = "<group>"; };
 		479AE1601531D903003695E8 /* takephoto@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "takephoto@2x.png"; path = "Resources/takephoto@2x.png"; sourceTree = "<group>"; };
@@ -464,6 +468,8 @@
 				47551D63152DAC64001A5AD1 /* LeftTableViewController.xib */,
 				476ABEF0156B027B00990D8B /* InfoViewController.h */,
 				476ABEF1156B027B00990D8B /* InfoViewController.m */,
+				478F0539156CFBB40005F40A /* infoView.html */,
+				478F0537156C62150005F40A /* infoStyle.css */,
 				476ABEF2156B027B00990D8B /* InfoViewController.xib */,
 				47551D53152DAA8B001A5AD1 /* JASidePanelController.h */,
 				47551D54152DAA8B001A5AD1 /* JASidePanelController.m */,
@@ -847,6 +853,8 @@
 				4735AC4E1558831700F5831E /* Icon@2x.png in Resources */,
 				476ABEEF156AF73800990D8B /* RightViewController.xib in Resources */,
 				476ABEF4156B027B00990D8B /* InfoViewController.xib in Resources */,
+				478F0538156C62150005F40A /* infoStyle.css in Resources */,
+				478F053A156CFBB40005F40A /* infoView.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
