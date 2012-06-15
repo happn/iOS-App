@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4705D330148E5C4E0049F385 /* RadioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4705D32F148E5C4E0049F385 /* RadioViewController.m */; };
 		471B8635152AE1FA00DA927D /* RKConnectionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 471B8634152AE1FA00DA927D /* RKConnectionHandler.m */; };
 		471B863B152AFE9A00DA927D /* Meal.m in Sources */ = {isa = PBXBuildFile; fileRef = 471B863A152AFE9A00DA927D /* Meal.m */; };
 		4735AC4C1558831200F5831E /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4735AC4B1558831200F5831E /* Icon.png */; };
@@ -37,7 +36,6 @@
 		477366A2152C509300EF53B5 /* DailyMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 477366A1152C509300EF53B5 /* DailyMenu.m */; };
 		4773F5A1153C36580011C7E5 /* FullScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4773F59F153C36580011C7E5 /* FullScreenViewController.m */; };
 		4773F5A2153C36580011C7E5 /* FullScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4773F5A0153C36580011C7E5 /* FullScreenViewController.xib */; };
-		477A914B1561A6EB000F52EF /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 477A91491561A6EA000F52EF /* libTestFlight.a */; };
 		477A914D1561A7A4000F52EF /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 477A914C1561A7A4000F52EF /* libz.dylib */; };
 		478716E31537132300492726 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 478716E21537132300492726 /* MapKit.framework */; };
 		478EE7521484EE3C0094CEC2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 478EE7511484EE3C0094CEC2 /* UIKit.framework */; };
@@ -356,7 +354,6 @@
 				478EE7521484EE3C0094CEC2 /* UIKit.framework in Frameworks */,
 				478EE7541484EE3C0094CEC2 /* Foundation.framework in Frameworks */,
 				478EE7561484EE3C0094CEC2 /* CoreGraphics.framework in Frameworks */,
-				477A914B1561A6EB000F52EF /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -867,7 +864,6 @@
 			files = (
 				478EE75E1484EE3C0094CEC2 /* main.m in Sources */,
 				478EE7621484EE3C0094CEC2 /* AppDelegate.m in Sources */,
-				4705D330148E5C4E0049F385 /* RadioViewController.m in Sources */,
 				4739C96D15231CF600F611A1 /* RKRequestExamples.m in Sources */,
 				47EEA8E1152A2CE4005E109A /* WebSocketTest.m in Sources */,
 				471B8635152AE1FA00DA927D /* RKConnectionHandler.m in Sources */,
@@ -961,7 +957,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7BD71A55-ACB5-4948-B0A5-C4612A4D2750";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "198CEA59-AC6C-4CE8-BAFB-A9DEF536CE40";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1018,7 +1014,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B849F009-5841-46D0-9C59-1F7875595465";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "198CEA59-AC6C-4CE8-BAFB-A9DEF536CE40";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

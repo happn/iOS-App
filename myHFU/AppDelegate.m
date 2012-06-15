@@ -30,13 +30,13 @@
 
 @implementation AppDelegate
 
-@synthesize window = _window, allMeals = _allMeals, moviePlayer = _moviePlayer, playerIsPlaying = _playerIsPlaying, loadedMeals = _loadedMeals, baseURLString = _baseURLString, baseURLCouchDbString = _baseURLCouchDbString, connectionHandler = _connectionHandler;
+@synthesize window = _window, allMeals = _allMeals, loadedMeals = _loadedMeals, baseURLString = _baseURLString, baseURLCouchDbString = _baseURLCouchDbString, connectionHandler = _connectionHandler;
 @synthesize viewController = _viewController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     //Testflight Live activation
-    [TestFlight takeOff:@"2398fdad899edb548aab3abd62a3da34_OTAxODYyMDEyLTA1LTE0IDE2OjUyOjQ3LjAxOTcwNw"];
+    //[TestFlight takeOff:@"2398fdad899edb548aab3abd62a3da34_OTAxODYyMDEyLTA1LTE0IDE2OjUyOjQ3LjAxOTcwNw"];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
@@ -72,69 +72,9 @@
     
     self.connectionHandler = [[RKConnectionHandler alloc] init];
     //[self.connectionHandler loadWeek:[self getCurrentDate]];
-
-    //Stuff we do not need to change
-    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-    
-    NSError *setCategoryError = nil;
-    [audioSession setCategory:AVAudioSessionCategoryPlayback error:&setCategoryError];
-    if (setCategoryError) { /* handle the error condition */ }
-    
-    NSError *activationError = nil;
-    [audioSession setActive:YES error:&activationError];
-    if (activationError) { /* handle the error condition */ }
-    
-    NSURL *url = [[NSURL alloc] initWithString:@"http://camm.dm.hs-furtwangen.de:8100/"]; 
-    
-    self.moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:url];
-    self.moviePlayer.useApplicationAudioSession = NO;
-    [self.moviePlayer setMovieSourceType:MPMovieSourceTypeUnknown];
-    
-    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
     
     [self.window makeKeyAndVisible];
     return YES;
-}
-
-- (void)remoteControlReceivedWithEvent:(UIEvent *)event {
-    switch(event.subtype) {
-        case UIEventSubtypeRemoteControlTogglePlayPause:
-            if (self.playerIsPlaying == NO)
-            {
-                self.playerIsPlaying = YES;
-                [self.moviePlayer play];
-            }
-            else
-            {
-                self.playerIsPlaying = NO;
-                [self.moviePlayer pause];
-            }
-            break;
-        case UIEventSubtypeNone:
-            break;
-        case UIEventSubtypeRemoteControlBeginSeekingBackward:
-            break;
-        case UIEventSubtypeRemoteControlEndSeekingBackward:
-            break;
-        case UIEventSubtypeRemoteControlNextTrack:
-            break;
-        case UIEventSubtypeRemoteControlPlay:
-            [self.moviePlayer play];
-            break;
-        case UIEventSubtypeRemoteControlStop:
-            [self.moviePlayer pause];
-            break;
-        case UIEventSubtypeMotionShake:
-            break;
-        case UIEventSubtypeRemoteControlPause:
-            break;
-        case UIEventSubtypeRemoteControlPreviousTrack:
-            break;
-        case UIEventSubtypeRemoteControlEndSeekingForward:
-            break;
-        case UIEventSubtypeRemoteControlBeginSeekingForward:
-            break;
-    }
 }
 
 - (void) objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects

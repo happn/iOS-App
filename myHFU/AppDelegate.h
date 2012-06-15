@@ -27,8 +27,6 @@
 @property (strong, nonatomic) NSArray *allMeals;
 @property (strong, nonatomic) NSString *baseURLString;
 @property (strong, nonatomic) NSString *baseURLCouchDbString;
-@property (strong, nonatomic) MPMoviePlayerController *moviePlayer;
-@property (assign, nonatomic) BOOL playerIsPlaying;
 @property (strong, nonatomic) JASidePanelController *viewController;
 @property (strong, nonatomic) RKConnectionHandler *connectionHandler;
 
