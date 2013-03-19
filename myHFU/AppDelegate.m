@@ -51,8 +51,8 @@
     [TTURLCache sharedCache].disableDiskCache = YES;
     [[TTURLCache sharedCache] removeAll:YES];
     
-    self.baseURLString = @"http://appserver.happn.de:8010";
-    self.baseURLCouchDbString =  @"http://appserver.happn.de:5984";
+    self.baseURLString = @"";
+    self.baseURLCouchDbString =  @"";
     
     //set userID
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -65,8 +65,8 @@
     RKClient *client = manager.client;
     //RKClient *client = [RKClient clientWithBaseURLString:self.baseURLString];
     [client setAuthenticationType:RKRequestAuthenticationTypeHTTPBasic];
-    client.username = @"appclient";
-    client.password = @"lassmiendlichnei";
+    client.username = @"";
+    client.password = @"";
     
     NSLog(@"I am your RKClient singleton : %@", [RKClient sharedClient]);
     
